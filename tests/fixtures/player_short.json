@@ -1,0 +1,32 @@
+{
+  "_fixture": {
+    "note": "Built from the user's real Short (youtube.com/shorts/TenGLiqgD50). Same player-response shape as a watch page \u2014 a Short is a video, so nothing about the parsing differs."
+  },
+  "videoDetails": {
+    "videoId": "TenGLiqgD50",
+    "title": "Even the most talented actors can't resist the \"Melissa McCarthy effect.\"",
+    "shortDescription": "Even the most talented actors can't resist the \"Melissa McCarthy effect.\"#funnymoments#jasonstatham",
+    "keywords": ["funny moments", "jason statham"],
+    "lengthSeconds": "72",
+    "viewCount": "32208",
+    "author": "DJ NOTUN GAN",
+    "channelId": "UCxPwFvvoJ66Ug_ZHyd3ljHA",
+    "isLiveContent": false
+  },
+  "streamingData": {
+    "formats": [
+      {
+        "url": "https://SIGNED_MEDIA_URL_MUST_NOT_LEAK"
+      }
+    ]
+  },
+  "microformat": {
+    "playerMicroformatRenderer": {
+      "publishDate": "2026-08-26",
+      "uploadDate": "2026-08-26",
+      "category": "Music",
+      "isFamilySafe": true,
+      "isUnlisted": false
+    }
+  }
+}

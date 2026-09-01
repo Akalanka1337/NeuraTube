@@ -1,0 +1,303 @@
+{
+  "_fixture": {
+    "endpoint": "POST https://studio.youtube.com/youtubei/v1/globalization/get_captions_translation?alt=json",
+    "provenance": "A REAL capture supplied by the project owner, complete: all 52 segments, verbatim startTimeMs/durationMs as strings, embedded newlines and trailing double spaces exactly as they arrive on the wire.",
+    "redaction": "responseContext.serviceTrackingParams is dropped \u2014 it carried a serializedDelegationContext (the real channel id) and a long experiment-id list, neither of which the parser reads. The request half is not stored at all; it carried eats, sessionInfo.token, clientScreenNonce and onBehalfOfUser.",
+    "asserts": {
+      "videoId": "Xo8bwzAFhSw",
+      "language": "en",
+      "segments": 52,
+      "firstStartMs": 480,
+      "lastStartMs": 306040,
+      "coverageMs": 312080
+    }
+  },
+  "responseContext": {
+    "responseId": "REDACTED",
+    "webResponseContextExtensionData": {
+      "hasDecorated": true
+    }
+  },
+  "translation": {
+    "displayName": "English",
+    "languageCode": "en",
+    "captionsTranslations": [
+      {
+        "status": "TRANSLATION_STATUS_DRAFT",
+        "source": "TRANSLATION_SOURCE_CREATOR",
+        "timeUpdatedSeconds": "1788012225",
+        "ttsTrackId": {
+          "kind": "",
+          "lang": "en",
+          "name": ""
+        },
+        "captionSegments": {
+          "segments": [
+            {
+              "startTimeMs": "480",
+              "durationMs": "5760",
+              "text": "Look at this blurry video. And now \nlook at it after AI enhancement.  "
+            },
+            {
+              "startTimeMs": "6240",
+              "durationMs": "5840",
+              "text": "This lowresolution clip has clearer edges, \nless visible noise, and much better detail.  "
+            },
+            {
+              "startTimeMs": "13520",
+              "durationMs": "6000",
+              "text": "Here is a blurry portrait before enhancement. \nAnd here is the restored version. [music] Even  "
+            },
+            {
+              "startTimeMs": "19520",
+              "durationMs": "6200",
+              "text": "this small compressed image can be enlarged while \nkeeping the face and finer details much clearer.  "
+            },
+            {
+              "startTimeMs": "26720",
+              "durationMs": "5160",
+              "text": "So, how difficult is it to create results like \nthese? [music] Today, I am testing video proc  "
+            },
+            {
+              "startTimeMs": "31880",
+              "durationMs": "4544",
+              "text": "converter AI and showing you exactly how to \nenhance low-quality videos and photos step  "
+            },
+            {
+              "startTimeMs": "36424",
+              "durationMs": "4856",
+              "text": "by step. But first, a quick question. [music] \nHow many video tools do you have installed on  "
+            },
+            {
+              "startTimeMs": "41280",
+              "durationMs": "5280",
+              "text": "your Mac right now? One for format conversion, one \nfor upscaling, one for editing, and one just for  "
+            },
+            {
+              "startTimeMs": "46560",
+              "durationMs": "4640",
+              "text": "downloading. Every time you make a video, it feels \nlike you're playing a frustrating game of software  "
+            },
+            {
+              "startTimeMs": "51200",
+              "durationMs": "4720",
+              "text": "hopscotch. And have you ever calculated how much \nyou spend on video tool subscriptions each month  "
+            },
+            {
+              "startTimeMs": "55920",
+              "durationMs": "4920",
+              "text": "over the course of a year? That adds up to \nenough to buy a brand new smartphone. That  "
+            },
+            {
+              "startTimeMs": "60840",
+              "durationMs": "5560",
+              "text": "is exactly why Video ProCver converter AI is such \na massive upgrade. It's an all-in-one solution.  "
+            },
+            {
+              "startTimeMs": "66400",
+              "durationMs": "5720",
+              "text": "You get format conversion, AI enhancement, \nediting, downloading, screen recording,  "
+            },
+            {
+              "startTimeMs": "72120",
+              "durationMs": "5080",
+              "text": "and even DVD ripping inside a single app. And \n[music] the best part, they offer a lifetime  "
+            },
+            {
+              "startTimeMs": "77200",
+              "durationMs": "4880",
+              "text": "license and family edition. You pay once and \nuse it forever across both Mac and Windows.  "
+            },
+            {
+              "startTimeMs": "83480",
+              "durationMs": "4520",
+              "text": "Let's jump right into the software and look \nat super resolution. [music] I'm dropping in  "
+            },
+            {
+              "startTimeMs": "88000",
+              "durationMs": "5720",
+              "text": "a lowresolution, heavily compressed video clip. \nOn the right, you can see their newest AI models,  "
+            },
+            {
+              "startTimeMs": "93720",
+              "durationMs": "6320",
+              "text": "Gen Detail V3 and Real Smooth V3. Gen Detail \nis specifically designed to reconstruct missing  "
+            },
+            {
+              "startTimeMs": "100040",
+              "durationMs": "5760",
+              "text": "natural textures like skin, hair, and fabric. Real \nSmooth is perfect for stripping out digital noise  "
+            },
+            {
+              "startTimeMs": "105800",
+              "durationMs": "5320",
+              "text": "and flaws. Watch the real-time split screen. \nThe AI doesn't just stretch the pixels, it uses  "
+            },
+            {
+              "startTimeMs": "111120",
+              "durationMs": "4880",
+              "text": "deep learning to actually generate the missing \n[music] details. We are upscaling this grainy  "
+            },
+            {
+              "startTimeMs": "116000",
+              "durationMs": "6240",
+              "text": "footage by 400% straight to crisp 4K. [music] And \nbecause the software dynamically adjusts your GPU  "
+            },
+            {
+              "startTimeMs": "122240",
+              "durationMs": "5320",
+              "text": "memory footprint, it won't crash your system \nprocessing 40 to 80% faster than older models.  "
+            },
+            {
+              "startTimeMs": "129720",
+              "durationMs": "6040",
+              "text": "All right, as you can see, I've set the resolution \nto 4K, [music] and everything looks good.  "
+            },
+            {
+              "startTimeMs": "135760",
+              "durationMs": "4360",
+              "text": "Now I'll click run to process the entire \n[music] video. This might take a little while,  "
+            },
+            {
+              "startTimeMs": "140120",
+              "durationMs": "3320",
+              "text": "so let's wait for it to finish and \nthen check out the final results."
+            },
+            {
+              "startTimeMs": "151040",
+              "durationMs": "2680",
+              "text": "Okay, thank you so much for watching \nthis video. Don't forget to check the  "
+            },
+            {
+              "startTimeMs": "153720",
+              "durationMs": "4320",
+              "text": "description for giveaways and challenges. I'll \nbe back soon with another tutorial. Until then,  "
+            },
+            {
+              "startTimeMs": "158040",
+              "durationMs": "5000",
+              "text": "goodbye. Great. Now the video looks perfect, \nbut what about motion? If you are generating  "
+            },
+            {
+              "startTimeMs": "163040",
+              "durationMs": "4760",
+              "text": "AI video clips in tools like V3 that often \noutput at lower frame rates, you can use  "
+            },
+            {
+              "startTimeMs": "167800",
+              "durationMs": "7280",
+              "text": "the frame interpolation tool. It converts those \nchoppy clips into 120, 240, or even 480 frames  "
+            },
+            {
+              "startTimeMs": "175080",
+              "durationMs": "5440",
+              "text": "per second for ultra smooth playback. Add in the \nAI shake removal and your footage looks flawless."
+            },
+            {
+              "startTimeMs": "191360",
+              "durationMs": "6960",
+              "text": "Next, let's switch over to image AI. Right now, we \nare going to focus purely on quality enhancement  "
+            },
+            {
+              "startTimeMs": "198320",
+              "durationMs": "5320",
+              "text": "and [music] face restoration. If you are \ngenerating highly detailed AI character portraits  "
+            },
+            {
+              "startTimeMs": "203640",
+              "durationMs": "5200",
+              "text": "in tools like Flux, [music] you know that export \nlimitations can sometimes hold your art back.  "
+            },
+            {
+              "startTimeMs": "208840",
+              "durationMs": "6520",
+              "text": "This module can intelligently enhance your \nphotos and AI art to 4K, 8K, [music] or even  "
+            },
+            {
+              "startTimeMs": "215360",
+              "durationMs": "6280",
+              "text": "a massive 10K resolution. Look at this blurry \nportrait. I'm enabling [music] face restoration.  "
+            },
+            {
+              "startTimeMs": "221640",
+              "durationMs": "5680",
+              "text": "Watch closely as I slide the preview bar. The \nAI specifically targets facial [music] clarity,  "
+            },
+            {
+              "startTimeMs": "227320",
+              "durationMs": "3760",
+              "text": "reconstructing the eyes, and sharpening \nthe jawline while keeping the skin looking  "
+            },
+            {
+              "startTimeMs": "231080",
+              "durationMs": "5160",
+              "text": "completely elegant and natural, removing \nall of those ugly compression artifacts.  "
+            },
+            {
+              "startTimeMs": "236240",
+              "durationMs": "4240",
+              "text": "And if you want to take your digital creations \ninto the real world, you can tweak the DPI  "
+            },
+            {
+              "startTimeMs": "240480",
+              "durationMs": "5240",
+              "text": "settings right here to optimize the image quality \nand sizing for professional physical printing."
+            },
+            {
+              "startTimeMs": "259880",
+              "durationMs": "3880",
+              "text": "Want to test these exact features \nout on your own files? Right now,  "
+            },
+            {
+              "startTimeMs": "263760",
+              "durationMs": "4880",
+              "text": "you can download the software and try it out \nusing the free giveaway link on their promo page.  "
+            },
+            {
+              "startTimeMs": "268640",
+              "durationMs": "4440",
+              "text": "But if you want to unlock the full power of \nthis all-in-one toolkit forever, you need to  "
+            },
+            {
+              "startTimeMs": "273080",
+              "durationMs": "5040",
+              "text": "grab their holiday special deal. It is literally \ntheir lowest price of the year. You can get a  "
+            },
+            {
+              "startTimeMs": "278120",
+              "durationMs": "8160",
+              "text": "massive [music] 62% off the lifetime license and \nit comes as a buy one [music] get for free bundle.  "
+            },
+            {
+              "startTimeMs": "286280",
+              "durationMs": "4760",
+              "text": "I have put the free download link alongside the \n62% off special deal link in the description  "
+            },
+            {
+              "startTimeMs": "291040",
+              "durationMs": "6040",
+              "text": "below. Go grab your copy, clean up your media, \nand stop playing software hopscotch [music] today.  "
+            },
+            {
+              "startTimeMs": "297080",
+              "durationMs": "4120",
+              "text": "If you found this tutorial helpful, do me \na massive favor. Smash that like button  "
+            },
+            {
+              "startTimeMs": "301200",
+              "durationMs": "4840",
+              "text": "and subscribe to the channel for more deep dives \ninto AI workflows [music] and image generation.  "
+            },
+            {
+              "startTimeMs": "306040",
+              "durationMs": "6040",
+              "text": "I'm Akalanka. Thanks so much for watching and \nI'll catch you in the next one. Let's do this."
+            }
+          ]
+        },
+        "contentUpdateTime": "1788012225922372",
+        "isComplexTrack": false
+      }
+    ]
+  }
+}

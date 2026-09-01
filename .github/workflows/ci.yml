@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same branch makes an in-flight run pointless.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Static checks and unit tests. Fast; runs on every push.
+  verify:
+    name: Types, lint, unit tests, bundle budget
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Regenerate icons and confirm they are reproducible
+        # Icons are generated from source rather than committed as opaque
+        # binaries. If the generator and the committed PNGs disagree, either the
+        # generator changed without regenerating or the PNGs were hand-edited.
+        run: |
+          pnpm run icons
+          git diff --exit-code --stat public/icons
+
+      - name: TypeScript
+        run: pnpm run compile
+
+      - name: ESLint
+        run: pnpm run lint
+
+      - name: Prettier
+        run: pnpm run format:check
+
+      - name: Unit tests
+        run: pnpm run test
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Bundle budget
+        run: pnpm run size
+
+      - name: Package
+        run: pnpm run zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: neuratube-unpacked
+          path: dist
+          retention-days: 14
+
+  # End-to-end tests against a hermetic mock of YouTube Studio. Separate job so
+  # a browser download does not slow the fast feedback loop above.
+  e2e:
+    name: E2E (Playwright, MV3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        # Bundled Chromium only. Google Chrome removed the flags required to
+        # sideload an unpacked extension, so `channel: 'chrome'` cannot work.
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Build extension
+        run: pnpm run build
+
+      - name: Run E2E suite
+        # Extensions need a real display for the persistent context.
+        run: xvfb-run --auto-servernum pnpm run test:e2e
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 14

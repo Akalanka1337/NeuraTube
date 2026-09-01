@@ -1,0 +1,207 @@
+<!doctype html>
+<!--
+  Minimal YouTube Studio stand-in for E2E tests.
+
+  It reproduces only the parts of Studio the panel actually depends on:
+    - `html[dark]`, which is how Studio signals dark mode
+    - an aggressive global stylesheet, to prove shadow-DOM isolation holds
+    - a body subtree that a script prunes, to prove the host survives the
+      SPA router replacing large parts of the page
+
+  It is served by Playwright route interception at the real Studio URL, so the
+  extension's content-script match patterns exercise the same code path they
+  will in production. Nothing here talks to Google.
+-->
+<html lang="en" dark>
+  <head>
+    <meta charset="utf-8" />
+    <title>Video details - YouTube Studio (mock)</title>
+    <style>
+      /* Deliberately hostile: if any of this reaches the panel, isolation is
+         broken and the test should catch it. */
+      * {
+        margin: 0 !important;
+        font-family: 'Comic Sans MS', cursive !important;
+        color: #ff00ff !important;
+      }
+      .panel,
+      .header,
+      .card,
+      .orb,
+      section,
+      button {
+        display: none !important;
+        background: #ff0000 !important;
+        border: 8px dashed lime !important;
+      }
+      html {
+        font-size: 40px;
+      }
+      body {
+        min-height: 200vh;
+        background: #0f0f0f;
+      }
+    </style>
+  </head>
+  <script>
+    /*
+     * Issue the primary InnerTube request from <head>, i.e. BEFORE the panel's
+     * content script runs at document_idle. Real Studio does the same, and this
+     * is precisely the window in which a transport without buffering loses the
+     * payload. Fulfilled by Playwright from tests/fixtures.
+     */
+    window.__mockXhrDone = new Promise(function (resolve) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/youtubei/v1/creator/get_creator_videos?alt=json');
+      xhr.setRequestHeader('content-type', 'application/json');
+      xhr.addEventListener('load', function () {
+        resolve(xhr.status);
+      });
+      xhr.addEventListener('error', function () {
+        resolve(0);
+      });
+      xhr.send(
+        JSON.stringify({ videoIds: ['tqygzPrAkjY'], context: { client: { clientName: 62 } } }),
+      );
+    });
+
+    /* Same payload over fetch, triggered on demand to exercise the other patch. */
+    window.__mockFetchVideos = function () {
+      return fetch('/youtubei/v1/creator/get_creator_videos?alt=json', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ videoIds: ['tqygzPrAkjY'] }),
+      }).then(function (res) {
+        return res.text();
+      });
+    };
+
+    /* A fetch called with a URL object — the shape the brief's parser dropped. */
+    window.__mockFetchWithUrlObject = function () {
+      return fetch(new URL('/youtubei/v1/creator/get_creator_videos?alt=json', location.origin), {
+        method: 'POST',
+        body: '{"videoIds":[]}',
+      }).then(function (res) {
+        return res.text();
+      });
+    };
+
+    /*
+     * Stand in for Studio's subtitles editor issuing the caption-timings
+     * request. In real Studio this fires only when the user opens that editor,
+     * which is the entire reason the transcript flow needs an explicit action —
+     * so the mock exposes it as a call the test makes deliberately rather than
+     * something the page does on load.
+     *
+     * The request body carries only the three fields the parser reads. The real
+     * request also carries session credentials, which are deliberately absent
+     * here: a fixture that contained them would be a credential in the repo.
+     */
+    window.__mockCaptionsTimings = function (videoId) {
+      /*
+       * Fire BOTH, in Studio's real order. get_captions_timings comes first and
+       * carries no segments (measured: {responseContext, nextRequestDelay}); the
+       * transcript arrives in get_captions_translation. Reproducing both is the
+       * point — the extension must not report the first one's emptiness as an
+       * error once the second succeeds.
+       */
+      return fetch('/youtubei/v1/globalization/get_captions_timings?alt=json', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ videoId: videoId, language: 'en' }),
+      })
+        .then(function () {
+          return fetch('/youtubei/v1/globalization/get_captions_translation?alt=json', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              videoId: videoId,
+              ttsTrackId: { lang: 'en', kind: '', name: '' },
+              userIntent: 'USER_INTENT_EDIT_LATEST_DRAFT',
+            }),
+          });
+        })
+        .then(function (res) {
+          return res.text();
+        });
+    };
+
+    /*
+     * An UNLISTED video's subtitles editor: get_captions_translation returns a
+     * `translation` wrapper with NO segments, and the track arrives in
+     * get_captions_timings instead. Reproduced from a live capture, because
+     * removing timings as a source broke transcripts on exactly these videos.
+     */
+    window.__mockUnlistedSubtitles = function (videoId) {
+      return fetch('/youtubei/v1/globalization/get_captions_translation?alt=json', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-mock-empty-track': '1' },
+        body: JSON.stringify({ videoId: videoId, ttsTrackId: { lang: 'en' } }),
+      })
+        .then(function () {
+          return fetch('/youtubei/v1/globalization/get_captions_timings?alt=json', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json', 'x-mock-track': '1' },
+            body: JSON.stringify({ videoId: videoId, language: 'en' }),
+          });
+        })
+        .then(function (res) {
+          return res.text();
+        });
+    };
+
+    /* Opening the modal: reveals the dialog and fires what Studio fires. */
+    window.__mockOpenSubtitlesModal = function () {
+      document.getElementById('subtitles-modal').hidden = false;
+      return window.__mockCaptionsTimings(location.pathname.split('/')[2] || 'tqygzPrAkjY');
+    };
+
+    /* Traffic NeuraTube must ignore. */
+    window.__mockNoise = function () {
+      return Promise.all([
+        fetch('/youtubei/v1/log_event?alt=json', { method: 'POST', body: '{}' }),
+        fetch('/generate_204'),
+      ]).catch(function () {
+        return null;
+      });
+    };
+  </script>
+  <body>
+    <main id="app">
+      <h1>Video details (mock Studio)</h1>
+      <p id="marker">page content</p>
+      <!--
+        Studio's own subtitles link. `findSubtitlesUrl` reads this href rather
+        than constructing a URL, so the E2E asserts the real code path: a route
+        rename in Studio would change this href and the extension would follow.
+      -->
+      <!--
+        Studio's own Subtitles control. On the real details page this opens a
+        MODAL over the same document at the same URL — it does not navigate — so
+        clicking it fires the globalization endpoints in the page NeuraTube is
+        already watching. The mock reproduces exactly that: same URL, no
+        navigation, endpoints fired on click.
+      -->
+      <a
+        id="subtitles-editor-link"
+        href="https://studio.youtube.com/video/null/translations"
+        onclick="
+          event.preventDefault();
+          window.__mockOpenSubtitlesModal();
+        "
+        >Subtitles</a
+      >
+      <div id="subtitles-modal" hidden>subtitles editor (mock modal)</div>
+    </main>
+    <script>
+      // Stand in for Studio's SPA router replacing a subtree after hydration.
+      window.__mockPrune = function () {
+        document.getElementById('app').replaceChildren();
+      };
+      // Stand in for a client-side route change with no document load.
+      window.__mockNavigate = function (href) {
+        history.pushState({}, '', href);
+      };
+    </script>
+  </body>
+</html>

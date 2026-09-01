@@ -1,0 +1,80 @@
+/*
+ * Design tokens.
+ *
+ * Declared on :host so they are scoped to the shadow root and cannot leak into
+ * YouTube, and cannot be overridden by it. Both themes are defined here and
+ * selected by a data attribute on the host, so switching themes is one
+ * attribute write with no restyle of the tree.
+ *
+ * Sizing uses px, not rem, deliberately: rem resolves against the *page's*
+ * <html> font-size, which pierces the shadow boundary. YouTube changing its
+ * root font size must not resize our panel.
+ */
+
+:host {
+  /* Layout */
+  --nt-panel-width: 380px;
+  --nt-panel-max-height: 78vh;
+  --nt-radius: 14px;
+  --nt-radius-sm: 8px;
+  --nt-gap: 12px;
+  --nt-pad: 14px;
+  --nt-orb-size: 48px;
+  --nt-z: 2147483000; /* below the 32-bit max so page tooltips can still win */
+
+  /* Type */
+  --nt-font:
+    'Roboto', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --nt-font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Menlo, monospace;
+  --nt-fs-xs: 11px;
+  --nt-fs-sm: 12px;
+  --nt-fs-md: 13px;
+  --nt-fs-lg: 15px;
+
+  /* Motion */
+  --nt-ease: cubic-bezier(0.2, 0, 0.2, 1);
+  --nt-dur: 140ms;
+
+  /* Dark is the default: Studio defaults to dark and it is the common case. */
+  --nt-bg: #14161a;
+  --nt-bg-elev: #1c1f25;
+  --nt-bg-inset: #0f1114;
+  --nt-border: #2b2f37;
+  --nt-fg: #f1f3f5;
+  --nt-fg-muted: #9aa3af;
+  --nt-fg-faint: #6b7280;
+  --nt-accent: #7c5cff;
+  --nt-accent-fg: #ffffff;
+  --nt-ok: #34d399;
+  --nt-warn: #fbbf24;
+  --nt-err: #f87171;
+  --nt-shadow: 0 8px 32px rgb(0 0 0 / 45%), 0 2px 8px rgb(0 0 0 / 30%);
+}
+
+:host([data-theme='light']) {
+  --nt-bg: #ffffff;
+  --nt-bg-elev: #f7f8fa;
+  --nt-bg-inset: #eef0f4;
+  --nt-border: #d9dde3;
+  --nt-fg: #14161a;
+  --nt-fg-muted: #5b6472;
+  --nt-fg-faint: #8b94a3;
+  --nt-accent: #5b3ff5;
+  --nt-accent-fg: #ffffff;
+  --nt-ok: #047857;
+  /*
+   * Darker than the usual amber-700 (#b45309) deliberately. On the 10%-tinted
+   * banner background this token also produces, #b45309 measures 4.38:1 —
+   * fractionally under the 4.5:1 that WCAG AA requires for normal text, and axe
+   * caught it. Amber-900 clears it with margin.
+   */
+  --nt-warn: #7c2d12;
+  --nt-err: #b91c1c;
+  --nt-shadow: 0 8px 28px rgb(15 22 36 / 14%), 0 2px 6px rgb(15 22 36 / 8%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    --nt-dur: 0ms;
+  }
+}

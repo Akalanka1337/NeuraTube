@@ -1,0 +1,70 @@
+{
+  "_fixture": {
+    "endpoint": "POST https://studio.youtube.com/youtubei/v1/globalization/get_captions_timings?alt=json",
+    "provenance": "Trimmed from a REAL capture on an UNLISTED video. This is the counter-example to get_captions_timings_ack.json: the same endpoint, carrying a full timed track.",
+    "why_it_matters": "The endpoint is an aligner. When the request carries transcript.text it returns timings; when Studio is only creating a draft it returns just responseContext. Neither response proves anything about the other, which is why every plausible source is parsed rather than one being declared correct.",
+    "redaction": "serviceTrackingParams dropped (it carried the real channel id). The request half is not stored: it carried eats, sessionInfo.token, clientScreenNonce, onBehalfOfUser and the full transcript text.",
+    "note": "Unlike get_captions_translation, there is NO languageCode or displayName here, so the language must come from the request.",
+    "asserts": {
+      "videoId": "Gl56GOSwkGo",
+      "language": "en",
+      "segments": 7,
+      "firstStartMs": 0
+    }
+  },
+  "responseContext": {
+    "responseId": "REDACTED",
+    "webResponseContextExtensionData": {
+      "hasDecorated": true
+    }
+  },
+  "translation": {
+    "captionsTranslations": [
+      {
+        "captionSegments": {
+          "segments": [
+            {
+              "startTimeMs": "0",
+              "durationMs": "7400",
+              "text": "I didn't install Node. I didn't install an IDE. \nI didn't configure an API key. I opened a browser  "
+            },
+            {
+              "startTimeMs": "7400",
+              "durationMs": "7080",
+              "text": "and asked an AI coding platform to build me a \nYouTube SEO tool. And this is what it created.  "
+            },
+            {
+              "startTimeMs": "14480",
+              "durationMs": "4960",
+              "text": "Today, we're putting Monkey Code to the test \nby building a real application from scratch.  "
+            },
+            {
+              "startTimeMs": "20640",
+              "durationMs": "4720",
+              "text": "Okay, this is Monkey Code, an open- source \nAI development platform from Chaitent.  "
+            },
+            {
+              "startTimeMs": "57960",
+              "durationMs": "4400",
+              "text": "signing in, and starting the development task. \nThat's the zero setup part of this workflow."
+            },
+            {
+              "startTimeMs": "234120",
+              "durationMs": "3800",
+              "text": "Nice. We can preview it here now. But the \nbuild isn't fully complete yet. It's still  "
+            },
+            {
+              "startTimeMs": "440400",
+              "durationMs": "5600",
+              "text": "Boost project in the gallery. This was Tube Boost \nAI built from a blank browser with Monkey Code."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "nextRequestDelay": {
+    "seconds": "3",
+    "nanos": 815393820
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "_fixture": {
+    "endpoint": "POST https://studio.youtube.com/youtubei/v1/creator/get_creator_videos?alt=json",
+    "provenance": "Synthesised from the schema documented in the project brief. NOT a live capture.",
+    "note": "Field names, nesting and enum values follow the brief's captured schema exactly. Values are invented and contain no real channel data. Replace with a redacted live capture when one is available; tests assert on the counts below, so a real capture with different counts will need those numbers updated.",
+    "asserts": {
+      "videoId": "tqygzPrAkjY",
+      "tags": 11,
+      "suggestedHashtags": 5,
+      "abTestArms": 2,
+      "thumbnails": 6
+    }
+  },
+  "responseContext": {
+    "visitorData": "REDACTED",
+    "serviceTrackingParams": [
+      { "service": "CSI", "params": [{ "key": "c", "value": "WEB_CREATOR" }] }
+    ]
+  },
+  "videos": [
+    {
+      "videoId": "tqygzPrAkjY",
+      "title": "Build an AI Agent in 12 Minutes (Full Tutorial)",
+      "description": "In this tutorial we build a working AI agent from scratch.\n\n0:00 Intro\n1:24 Setting up the project\n4:10 Writing the tool layer\n8:35 Streaming responses\n11:02 Deploying\n\nGrab the source code: https://example.com/agent-tutorial\n\n#aiagents #coding #tutorial",
+      "descriptionDetails": {
+        "segments": {
+          "textSegments": [
+            { "text": "In this tutorial we build a working AI agent from scratch." },
+            { "text": "#aiagents" },
+            { "text": "#coding" },
+            { "text": "#tutorial" }
+          ]
+        }
+      },
+      "tags": [
+        { "value": "ai agent" },
+        { "value": "ai agent tutorial" },
+        { "value": "build ai agent" },
+        { "value": "langchain" },
+        { "value": "openai api" },
+        { "value": "python tutorial" },
+        { "value": "coding tutorial" },
+        { "value": "llm" },
+        { "value": "ai coding" },
+        { "value": "developer tools" },
+        { "value": "software engineering" }
+      ],
+      "suggestions": {
+        "hashtagSuggestions": {
+          "hashtags": [
+            { "hashtagId": "aiagents" },
+            { "hashtagId": "#coding" },
+            { "hashtagId": "machinelearning" },
+            { "hashtagId": "programming" },
+            { "hashtagId": "tutorial" }
+          ]
+        }
+      },
+      "lengthSeconds": "742",
+      "videoDurationMs": 742183,
+      "timePublishedSeconds": "1755561600",
+      "channelId": "UCuAXFkgsw1L7xaCfnd5JJOw",
+      "category": "CREATOR_VIDEO_CATEGORY_EDUCATION",
+      "license": "STANDARD_YOUTUBE_LICENSE",
+      "privacy": "VIDEO_PRIVACY_PUBLIC",
+      "status": "VIDEO_STATUS_PROCESSED",
+      "metadataLanguage": { "languageCode": "en", "languageName": "English" },
+      "mfkSettings": {
+        "effectiveMadeForKids": "VIDEO_EFFECTIVE_MADE_FOR_KIDS_NOT_MFK",
+        "selfDeclaredMadeForKids": "VIDEO_MADE_FOR_KIDS_NOT_MFK"
+      },
+      "ageRestriction": "VIDEO_AGE_RESTRICTION_NONE",
+      "allowEmbed": true,
+      "allowRatings": true,
+      "paidProductPlacement": false,
+      "alteredContentSettings": { "alteredContent": "VIDEO_HAS_ALTERED_CONTENT_NO" },
+      "originalFilename": "FlovaAI-Tutorial.mov",
+      "shareUrl": "https://youtu.be/tqygzPrAkjY",
+      "thumbnailDetails": {
+        "thumbnails": [
+          { "url": "https://i.ytimg.com/vi/tqygzPrAkjY/default.jpg", "width": 120, "height": 90 },
+          {
+            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          {
+            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          {
+            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          {
+            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          },
+          {
+            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/maxres2.jpg",
+            "width": 1920,
+            "height": 1080
+          }
+        ]
+      },
+      "videoCreatorExperiment": {
+        "result": {
+          "experimentState": "CREATOR_EXPERIMENT_STATE_FINISHED",
+          "resultState": "CREATOR_EXPERIMENT_RESULT_STATE_WINNER",
+          "armResults": [{ "watchtimeFraction": 0.5814 }, { "watchtimeFraction": 0.4186 }]
+        }
+      },
+      "copyrightSummary": {
+        "activeThirdPartyClaimCount": 1,
+        "videoMonetizationImpact": "VIDEO_COPYRIGHT_MONETIZATION_IMPACT_NOT_AFFECTED"
+      },
+      "monetization": { "adMonetization": { "effectiveStatus": "AD_MONETIZATION_STATUS_ON" } },
+      "selfCertification": { "monetizationDecision": "SELF_CERT_DECISION_APPROVED" },
+      "commentSettings": {
+        "allowComments": true,
+        "commentsModerationMode": "MODERATION_MODE_NONE"
+      },
+      "videoStreamUrl": "https://rr3---sn-example.googlevideo.com/videoplayback?expire=REDACTED"
+    },
+    {
+      "videoId": "dQw4w9WgXcQ",
+      "title": "Shorts test upload",
+      "description": "",
+      "tags": [],
+      "lengthSeconds": "48",
+      "timePublishedSeconds": "1750000000",
+      "channelId": "UCuAXFkgsw1L7xaCfnd5JJOw",
+      "category": "CREATOR_VIDEO_CATEGORY_PEOPLE_BLOGS",
+      "privacy": "VIDEO_PRIVACY_UNLISTED",
+      "status": "VIDEO_STATUS_PROCESSING",
+      "mfkSettings": { "effectiveMadeForKids": "VIDEO_EFFECTIVE_MADE_FOR_KIDS_MFK" },
+      "paidProductPlacement": true,
+      "allowEmbed": false,
+      "allowRatings": false,
+      "shareUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "thumbnailDetails": { "thumbnails": [] }
+    }
+  ]
+}

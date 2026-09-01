@@ -1,0 +1,26 @@
+{
+  "extDescription": {
+    "message": "AI-native YouTube optimizer. Bring your own API key. No telemetry, no credit system.",
+    "description": "Chrome Web Store listing description, shown under the extension name."
+  },
+  "commandTogglePanel": {
+    "message": "Toggle the NeuraTube panel",
+    "description": "Label for the Alt+N keyboard shortcut in chrome://extensions/shortcuts."
+  },
+  "panelTitle": {
+    "message": "NeuraTube",
+    "description": "Panel heading."
+  },
+  "panelHide": {
+    "message": "Hide panel",
+    "description": "Accessible label for the panel's close button."
+  },
+  "panelCollapse": {
+    "message": "Collapse panel",
+    "description": "Accessible label for the button that collapses the panel to an orb."
+  },
+  "panelExpand": {
+    "message": "Open NeuraTube panel",
+    "description": "Accessible label for the collapsed orb."
+  }
+}

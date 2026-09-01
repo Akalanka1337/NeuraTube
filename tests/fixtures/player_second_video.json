@@ -1,0 +1,32 @@
+{
+  "_fixture": {
+    "note": "A /youtubei/v1/player response for a SECOND video, used to prove the panel follows client-side navigation. Shape mirrors ytInitialPlayerResponse because it is the same payload."
+  },
+  "videoDetails": {
+    "videoId": "dQw4w9WgXcQ",
+    "title": "Second video",
+    "shortDescription": "A different video entirely. #second",
+    "keywords": ["second video tag"],
+    "lengthSeconds": "212",
+    "viewCount": "99",
+    "author": "Akalanka Ekanayake",
+    "channelId": "UC_REDACTED_CHANNEL_ID_0000",
+    "isLiveContent": false
+  },
+  "streamingData": {
+    "formats": [
+      {
+        "url": "https://SIGNED_MEDIA_URL_MUST_NOT_LEAK"
+      }
+    ]
+  },
+  "microformat": {
+    "playerMicroformatRenderer": {
+      "publishDate": "2026-08-01",
+      "uploadDate": "2026-08-01",
+      "category": "Music",
+      "isFamilySafe": true,
+      "isUnlisted": false
+    }
+  }
+}

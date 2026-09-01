@@ -1,0 +1,9 @@
+{
+  "_fixture": {
+    "note": "Only the fields the parser reads. The live request also carried session credentials and the full transcript text, none of which is stored. Note `language` is top level here, unlike the translation request's ttsTrackId.lang."
+  },
+  "videoId": "Gl56GOSwkGo",
+  "channelId": "UC_REDACTED_CHANNEL_ID_0000",
+  "language": "en",
+  "isUserInitiated": false
+}

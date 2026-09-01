@@ -1,0 +1,7 @@
+dist
+artifacts
+coverage
+playwright-report
+test-results
+pnpm-lock.yaml
+public/icons

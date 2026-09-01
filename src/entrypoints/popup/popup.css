@@ -1,0 +1,150 @@
+/*
+ * Popup styles.
+ *
+ * This page runs on the extension's own origin, so there is no hostile cascade
+ * to defend against and no shadow root needed. Tokens are duplicated rather
+ * than imported from the panel: the panel's tokens are declared on :host, which
+ * has no meaning in a normal document, and the popup is 40 lines of CSS.
+ */
+
+:root {
+  --bg: #14161a;
+  --bg-elev: #1c1f25;
+  --border: #2b2f37;
+  --fg: #f1f3f5;
+  --fg-muted: #9aa3af;
+  --accent: #7c5cff;
+  --ok: #34d399;
+  --warn: #fbbf24;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #ffffff;
+    --bg-elev: #f7f8fa;
+    --border: #d9dde3;
+    --fg: #14161a;
+    --fg-muted: #5b6472;
+    --accent: #5b3ff5;
+    --ok: #059669;
+    --warn: #b45309;
+    color-scheme: light;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 300px;
+  margin: 0;
+  padding: 14px;
+  font-family:
+    'Roboto',
+    'Segoe UI',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.brand .mark {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(140deg, var(--accent), #b06cff);
+  border-radius: 7px;
+}
+
+.brand strong {
+  font-size: 14px;
+}
+
+.brand span {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.rows {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 10px;
+  margin: 0 0 12px;
+  padding: 10px;
+  font-size: 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.rows dt {
+  color: var(--fg-muted);
+}
+
+.rows dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+button {
+  width: 100%;
+  padding: 8px 10px;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:disabled {
+  color: var(--fg-muted);
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+.hint {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--fg-muted);
+}
+
+.hint kbd {
+  padding: 1px 4px;
+  font-family: ui-monospace, monospace;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.ok {
+  color: var(--ok);
+}
+
+.warn {
+  color: var(--warn);
+}

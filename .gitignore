@@ -1,0 +1,15 @@
+node_modules/
+dist/
+artifacts/
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+
+# Captured InnerTube payloads may contain channel-identifying data. Redacted
+# fixtures live in tests/fixtures/ and ARE committed; raw captures never are.
+captures/

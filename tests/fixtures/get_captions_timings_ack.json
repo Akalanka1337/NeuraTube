@@ -1,0 +1,15 @@
+{
+  "_fixture": {
+    "note": "The ACTUAL get_captions_timings response body, measured live via the panel's own diagnosis: 3961 bytes of responseContext and a delay hint, and NO translation key. Pinned so nobody targets this endpoint for transcript data again."
+  },
+  "responseContext": {
+    "responseId": "REDACTED",
+    "webResponseContextExtensionData": {
+      "hasDecorated": true
+    }
+  },
+  "nextRequestDelay": {
+    "seconds": "3",
+    "nanos": 609132220
+  }
+}

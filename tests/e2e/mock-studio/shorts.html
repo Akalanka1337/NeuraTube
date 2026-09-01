@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+  YouTube Shorts stand-in.
+
+  Reproduces what matters about the surface: the video id lives in the PATH, not
+  in a `v=` query parameter, which is exactly why the panel used to report
+  "Unsupported page / none on this page" while still reading the video fine.
+
+  Scrolling to the next Short rewrites the path with no document load and fires a
+  player request, so `__mockShortsScroll` does both.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shorts - YouTube (mock)</title>
+    <style>
+      body {
+        margin: 0;
+        /* A Short is a full-height vertical player. */
+        height: 100vh;
+        background: #0f0f0f;
+        color: #f1f1f1;
+        font-family: Roboto, sans-serif;
+      }
+    </style>
+    <script>
+      window.ytInitialPlayerResponse = {
+        videoDetails: {
+          videoId: 'TenGLiqgD50',
+          title: 'Even the most talented actors can\'t resist the "Melissa McCarthy effect."',
+          shortDescription:
+            'Even the most talented actors can\'t resist the "Melissa McCarthy effect."#funnymoments#jasonstatham',
+          keywords: ['funny moments', 'jason statham'],
+          lengthSeconds: '72',
+          viewCount: '32208',
+          author: 'DJ NOTUN GAN',
+          channelId: 'UCxPwFvvoJ66Ug_ZHyd3ljHA',
+          isLiveContent: false,
+        },
+        streamingData: { formats: [{ url: 'https://SIGNED_MEDIA_URL_MUST_NOT_LEAK' }] },
+        microformat: {
+          playerMicroformatRenderer: {
+            publishDate: '2026-08-26',
+            uploadDate: '2026-08-26',
+            category: 'Music',
+            isFamilySafe: true,
+            isUnlisted: false,
+          },
+        },
+      };
+
+      /* Scroll to the next Short: path rewrite plus a player fetch. */
+      window.__mockShortsScroll = function (videoId) {
+        history.pushState({}, '', '/shorts/' + videoId);
+        return fetch('/youtubei/v1/player?key=mock', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ videoId: videoId }),
+        }).then(function (res) {
+          return res.text();
+        });
+      };
+
+      /* The public caption track, as the Shorts player requests it. */
+      window.__mockTimedText = function (videoId) {
+        return fetch(
+          '/api/timedtext?v=' + videoId + '&lang=en&fmt=json3&signature=SIGVALUE&pot=POTVALUE',
+        ).then(function (res) {
+          return res.text();
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <h1>Mock Short</h1>
+
+    <!-- Shorts renders comments in a side drawer, same element names. -->
+    <ytd-comments>
+      <ytd-comments-header-renderer>
+        <h2 id="count"><span>2</span><span> Comments</span></h2>
+        <div id="sort-menu"><div class="item">Top</div></div>
+      </ytd-comments-header-renderer>
+
+      <ytd-comment-thread-renderer>
+        <ytd-comment-view-model>
+          <a id="author-text"><span> @someviewer </span></a>
+          <span id="published-time-text"><a>2 days ago</a></span>
+          <yt-attributed-string id="content-text"
+            >Statham never stood a chance here</yt-attributed-string
+          >
+          <span id="vote-count-middle">312</span>
+        </ytd-comment-view-model>
+      </ytd-comment-thread-renderer>
+
+      <ytd-comment-thread-renderer>
+        <ytd-comment-view-model>
+          <a id="author-text"><span> @another </span></a>
+          <span id="published-time-text"><a>1 day ago</a></span>
+          <yt-attributed-string id="content-text">What movie is this from?</yt-attributed-string>
+          <span id="vote-count-middle">18</span>
+        </ytd-comment-view-model>
+      </ytd-comment-thread-renderer>
+    </ytd-comments>
+  </body>
+</html>

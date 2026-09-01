@@ -1,0 +1,30 @@
+{
+  "_fixture": {
+    "source": "Extracted by intercept/pageData.ts from window.ytInitialPlayerResponse on a public watch page.",
+    "redaction": "Only the descriptive allowlist. The real global also carries streamingData (signed media URLs), playback tracking and ad config \u2014 none of which is read.",
+    "asserts": {
+      "videoId": "Xo8bwzAFhSw",
+      "tags": 4,
+      "durationSec": 317
+    }
+  },
+  "videoId": "Xo8bwzAFhSw",
+  "title": "How to Enhance Low-Quality Videos & Photos to 4K (VideoProc AI Tutorial)",
+  "shortDescription": "Turn blurry, low\u2011resolution videos and photos into crisp 4K results in seconds with AI.\nIn this tutorial I walk you through VideoProc Converter AI.\n\n#VideoProc #AI #VideoEnhancement #UpscaleVideo",
+  "keywords": [
+    "videoproc converter ai",
+    "upscale video to 4k",
+    "ai video enhancer",
+    "frame interpolation"
+  ],
+  "lengthSeconds": "317",
+  "viewCount": "1443",
+  "author": "Akalanka Ekanayake",
+  "channelId": "UC_REDACTED_CHANNEL_ID_0000",
+  "isLiveContent": false,
+  "publishDate": "2026-07-15",
+  "uploadDate": "2026-07-14",
+  "category": "Science & Technology",
+  "isFamilySafe": true,
+  "isUnlisted": false
+}

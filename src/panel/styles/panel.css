@@ -1,0 +1,1009 @@
+/*
+ * Panel styles.
+ *
+ * Plain CSS, not Tailwind. Tailwind v4 relies on @property declarations for its
+ * animatable utilities and those do not apply inside a shadow root; Preflight
+ * also overrides :host, and its rem-based spacing leaks from the page's root
+ * font size. Hand-written CSS against the tokens in tokens.css avoids all three
+ * problems and costs a few KB.
+ */
+
+:host {
+  /*
+   * Position and size come from inline styles written by mount.tsx, driven by
+   * the geometry signal — NOT from here. A CSS position would fight the drag
+   * gesture, and a page stylesheet could override a non-important rule.
+   */
+  display: block;
+  contain: layout style;
+  /* Ensure YouTube's inherited typography cannot reach in. */
+  font-family: var(--nt-font);
+  font-size: var(--nt-fs-md);
+  line-height: 1.45;
+  color: var(--nt-fg);
+  text-align: left;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*
+ * Inherited-property firewall.
+ *
+ * A shadow root blocks page *selectors*, not CSS *inheritance*. The host
+ * element sits in the page's tree, so a page rule like
+ * `* { font-family: 'Comic Sans MS' !important; color: #f0f !important }`
+ * matches the host and every inheritable property flows down into our tree.
+ * Declaring these on :host loses to the page's !important; declaring them on
+ * elements inside the shadow root cannot lose, because no page selector can
+ * address them. Verified by an E2E test that serves exactly that hostile rule.
+ */
+.panel,
+.orb {
+  font-family: var(--nt-font);
+  font-size: var(--nt-fs-md);
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  line-height: 1.45;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0;
+  text-align: left;
+  text-shadow: none;
+  color: var(--nt-fg);
+  direction: ltr;
+  visibility: visible;
+  cursor: default;
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Fills the host, whose size is the stored geometry. */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--nt-bg);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius);
+  box-shadow: var(--nt-shadow);
+  animation: nt-in var(--nt-dur) var(--nt-ease);
+}
+
+@keyframes nt-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- header ---------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px var(--nt-pad);
+  background: var(--nt-bg-elev);
+  border-bottom: 1px solid var(--nt-border);
+  /* M4 makes this the drag handle. */
+  cursor: default;
+  user-select: none;
+}
+
+.mark {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-size: var(--nt-fs-sm);
+  font-weight: 700;
+  color: var(--nt-accent-fg);
+  background: linear-gradient(140deg, var(--nt-accent), #b06cff);
+  border-radius: 6px;
+}
+
+.titles {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--nt-fs-md);
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+.subtitle {
+  overflow: hidden;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-muted);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header-actions {
+  display: flex;
+  flex: none;
+  gap: 4px;
+}
+
+/* ---------- generic controls ---------- */
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font: inherit;
+  color: var(--nt-fg-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--nt-radius-sm);
+  cursor: pointer;
+  transition:
+    background var(--nt-dur) var(--nt-ease),
+    color var(--nt-dur) var(--nt-ease);
+}
+
+.icon-btn:hover {
+  color: var(--nt-fg);
+  background: var(--nt-bg-inset);
+}
+
+.icon-btn:focus-visible,
+.orb:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 2px;
+}
+
+.icon-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- body ---------- */
+
+.body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--nt-gap);
+  padding: var(--nt-pad);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.body:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: -2px;
+}
+
+.body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: var(--nt-border);
+  border-radius: 4px;
+}
+
+.card {
+  padding: 12px;
+  background: var(--nt-bg-elev);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-sm);
+}
+
+.card-title {
+  margin: 0 0 8px;
+  font-size: var(--nt-fs-xs);
+  font-weight: 700;
+  color: var(--nt-fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.rows {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: 6px 12px;
+  margin: 0;
+  font-size: var(--nt-fs-sm);
+}
+
+.rows dt {
+  color: var(--nt-fg-muted);
+  white-space: nowrap;
+}
+
+.rows dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.mono {
+  font-family: var(--nt-font-mono);
+  font-size: var(--nt-fs-xs);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 8px;
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  border: 1px solid currentcolor;
+  border-radius: 999px;
+}
+
+.pill--ok {
+  color: var(--nt-ok);
+}
+
+.pill--warn {
+  color: var(--nt-warn);
+}
+
+.pill--err {
+  color: var(--nt-err);
+}
+
+.pill--muted {
+  color: var(--nt-fg-faint);
+}
+
+.note {
+  margin: 0;
+  font-size: var(--nt-fs-sm);
+  color: var(--nt-fg-muted);
+}
+
+.note code,
+kbd {
+  padding: 1px 5px;
+  font-family: var(--nt-font-mono);
+  font-size: var(--nt-fs-xs);
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: 4px;
+}
+
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  font-size: var(--nt-fs-sm);
+  list-style: none;
+}
+
+.roadmap li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  color: var(--nt-fg-muted);
+}
+
+.roadmap .ms {
+  flex: none;
+  font-family: var(--nt-font-mono);
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-faint);
+}
+
+.roadmap li[data-done='true'] {
+  color: var(--nt-fg);
+}
+
+.roadmap li[data-done='true'] .ms {
+  color: var(--nt-ok);
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  display: flex;
+  flex: none;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px var(--nt-pad);
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-faint);
+  background: var(--nt-bg-elev);
+  border-top: 1px solid var(--nt-border);
+}
+
+.footer-metric {
+  font-family: var(--nt-font-mono);
+}
+
+/* ---------- collapsed orb ---------- */
+
+.orb {
+  display: grid;
+  place-items: center;
+  width: var(--nt-orb-size);
+  height: var(--nt-orb-size);
+  padding: 0;
+  font: inherit;
+  font-size: var(--nt-fs-lg);
+  font-weight: 700;
+  color: var(--nt-accent-fg);
+  background: linear-gradient(140deg, var(--nt-accent), #b06cff);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--nt-shadow);
+  cursor: pointer;
+  transition: transform var(--nt-dur) var(--nt-ease);
+}
+
+.orb:hover {
+  transform: scale(1.06);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- M2: intercepted data ---------- */
+
+.banner {
+  padding: 9px 11px;
+  font-size: var(--nt-fs-sm);
+  border: 1px solid currentcolor;
+  border-radius: var(--nt-radius-sm);
+}
+
+.banner--warn {
+  color: var(--nt-warn);
+  background: color-mix(in srgb, var(--nt-warn) 10%, transparent);
+}
+
+.card-title .count {
+  padding: 0 5px;
+  margin-left: 2px;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-faint);
+  text-transform: none;
+  letter-spacing: 0;
+  background: var(--nt-bg-inset);
+  border-radius: 4px;
+}
+
+.video-title {
+  margin: 0 0 10px;
+  font-size: var(--nt-fs-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.taglist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.taglist li {
+  padding: 2px 8px;
+  font-size: var(--nt-fs-xs);
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: 999px;
+  overflow-wrap: anywhere;
+}
+
+.taglist--accent li {
+  color: var(--nt-accent);
+  border-color: color-mix(in srgb, var(--nt-accent) 45%, var(--nt-border));
+  background: color-mix(in srgb, var(--nt-accent) 12%, transparent);
+}
+
+/* ---------- A/B arms ---------- */
+
+.arms {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arms li {
+  display: grid;
+  grid-template-columns: 52px 1fr 48px;
+  gap: 8px;
+  align-items: center;
+  font-size: var(--nt-fs-xs);
+}
+
+.arm-label {
+  color: var(--nt-fg-muted);
+}
+
+.arm-bar {
+  height: 6px;
+  overflow: hidden;
+  background: var(--nt-bg-inset);
+  border-radius: 3px;
+}
+
+.arm-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--nt-accent), #b06cff);
+  border-radius: 3px;
+}
+
+.arm-value {
+  font-family: var(--nt-font-mono);
+  text-align: right;
+}
+
+/* ---------- debug ---------- */
+
+.log {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.log li {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--nt-border);
+}
+
+.log li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.log-kind {
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-ok);
+  letter-spacing: 0.3px;
+}
+
+.log-kind--err {
+  color: var(--nt-err);
+}
+
+.log-meta {
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-faint);
+}
+
+.json {
+  max-height: 260px;
+  padding: 9px;
+  margin: 0;
+  overflow: auto;
+  font-family: var(--nt-font-mono);
+  font-size: var(--nt-fs-xs);
+  line-height: 1.5;
+  white-space: pre;
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-sm);
+}
+
+.json:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 1px;
+}
+
+.note--sm {
+  font-size: var(--nt-fs-xs);
+}
+
+/* ---------- M4: drag, resize, snap ---------- */
+
+/*
+ * The header is the drag handle.
+ *
+ * `touch-action: none` is required, not cosmetic: without it the browser claims
+ * the gesture for scrolling and a drag never starts on a touch device.
+ */
+.header {
+  cursor: grab;
+  touch-action: none;
+}
+
+.header:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: -2px;
+}
+
+:host([data-interacting='true']) .header {
+  cursor: grabbing;
+}
+
+/*
+ * Suppress transitions mid-gesture.
+ *
+ * Animating position on every pointermove makes the panel visibly lag the
+ * cursor, which reads as jank rather than polish.
+ */
+:host([data-interacting='true']) .panel {
+  animation: none;
+  transition: none;
+}
+
+/* A docked panel loses its outer corner radius on the docked side. */
+:host([data-snap='left']) .panel {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+:host([data-snap='right']) .panel {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-bottom-right-radius: var(--nt-radius);
+  cursor: nwse-resize;
+  /* Same reason as the header. */
+  touch-action: none;
+}
+
+/* Two diagonal strokes, drawn rather than imaged. */
+.resize-handle::after {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 9px;
+  height: 9px;
+  content: '';
+  border-right: 2px solid var(--nt-fg-faint);
+  border-bottom: 2px solid var(--nt-fg-faint);
+  border-bottom-right-radius: 3px;
+  opacity: 0.7;
+}
+
+.resize-handle:hover::after {
+  border-color: var(--nt-accent);
+  opacity: 1;
+}
+
+.resize-handle:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: -2px;
+}
+
+/* A snapped panel is full height; resizing its height would fight the dock. */
+:host([data-snap='left']) .resize-handle,
+:host([data-snap='right']) .resize-handle {
+  cursor: ew-resize;
+}
+
+/* ---------- M5: tasks ---------- */
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task-btn {
+  display: grid;
+  grid-template-areas: 'label badge' 'desc badge';
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1px 8px;
+  width: 100%;
+  padding: 8px 9px;
+  font: inherit;
+  color: var(--nt-fg);
+  text-align: left;
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-sm);
+  cursor: pointer;
+  transition: border-color var(--nt-dur) var(--nt-ease);
+}
+
+.task-btn:hover {
+  border-color: color-mix(in srgb, var(--nt-accent) 55%, var(--nt-border));
+}
+
+.task-btn:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 1px;
+}
+
+.task-label {
+  grid-area: label;
+  font-size: var(--nt-fs-sm);
+  font-weight: 600;
+}
+
+.task-desc {
+  grid-area: desc;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-muted);
+}
+
+.task-btn .pill {
+  grid-area: badge;
+  align-self: center;
+}
+
+.task-output-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-output-title {
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.ghost-btn {
+  flex: none;
+  padding: 4px 9px;
+  font: inherit;
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-fg);
+  background: transparent;
+  border: 1px solid var(--nt-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.ghost-btn:hover {
+  background: var(--nt-bg-inset);
+}
+
+.ghost-btn:focus-visible,
+.task-actions button:focus-visible,
+.transcript-actions button:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 1px;
+}
+
+.rails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.pill--accent {
+  color: var(--nt-accent);
+}
+
+.banner--err {
+  color: var(--nt-err);
+  background: color-mix(in srgb, var(--nt-err) 10%, transparent);
+}
+
+.output {
+  max-height: 300px;
+  padding: 10px;
+  margin: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-family: var(--nt-font-mono);
+  font-size: var(--nt-fs-xs);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-sm);
+}
+
+.output:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 1px;
+}
+
+.caret {
+  display: inline-block;
+  width: 6px;
+  height: 1em;
+  vertical-align: text-bottom;
+  background: var(--nt-accent);
+  animation: nt-blink 1s step-end infinite;
+}
+
+@keyframes nt-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret {
+    animation: none;
+  }
+}
+
+/*
+ * `.transcript-actions` shares the layout but NOT the class name.
+ *
+ * It originally reused `.task-actions`, which put an unrelated button inside the
+ * copy-actions group: `.task-actions button:first-child` stopped being the copy
+ * button, and the clipboard tests started clicking "Open subtitles editor". A
+ * separate class keeps each group's selector meaningful.
+ */
+/* ---------- transcript switch ---------- */
+
+.transcript-rails {
+  align-items: center;
+}
+
+/*
+ * A real checkbox under a drawn track, not a div pretending to be one: it stays
+ * keyboard reachable, announces its checked state to a screen reader, and is
+ * labelled by the surrounding <label> for free. The input is visually hidden
+ * rather than display:none, which would remove it from the tab order.
+ */
+.switch {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-fg);
+  cursor: pointer;
+  user-select: none;
+}
+
+.switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.switch-track {
+  position: relative;
+  flex: none;
+  width: 28px;
+  height: 16px;
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: 999px;
+  transition:
+    background var(--nt-dur) var(--nt-ease),
+    border-color var(--nt-dur) var(--nt-ease);
+}
+
+.switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  background: var(--nt-fg-faint);
+  border-radius: 50%;
+  transition:
+    transform var(--nt-dur) var(--nt-ease),
+    background var(--nt-dur) var(--nt-ease);
+}
+
+.switch input:checked + .switch-track {
+  background: var(--nt-accent);
+  border-color: var(--nt-accent);
+}
+
+.switch input:checked + .switch-track .switch-knob {
+  background: var(--nt-accent-fg);
+  transform: translateX(12px);
+}
+
+.switch input:focus-visible + .switch-track {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 2px;
+}
+
+.switch-meta {
+  font-weight: 400;
+  color: var(--nt-fg-faint);
+}
+
+/* One quiet line for tasks the transcript merely improves. */
+.transcript-hint {
+  margin-top: 2px;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-faint);
+}
+
+.task-actions,
+.transcript-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.task-actions button,
+.transcript-actions button {
+  flex: none;
+  padding: 6px 11px;
+  font: inherit;
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-accent-fg);
+  background: var(--nt-accent);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task-actions button.ghost-btn,
+.transcript-actions button.ghost-btn {
+  color: var(--nt-fg);
+  background: transparent;
+  border-color: var(--nt-border);
+}
+
+.muted-line {
+  margin: 10px 0 0;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-faint);
+}
+
+/* ---------- individually copyable suggestions ---------- */
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: suggestion;
+}
+
+.suggestions li {
+  padding: 9px 10px;
+  counter-increment: suggestion;
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-sm);
+}
+
+.suggestion-text {
+  margin: 0;
+  font-size: var(--nt-fs-sm);
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.suggestion-text::before {
+  margin-right: 6px;
+  font-family: var(--nt-font-mono);
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-fg-faint);
+  content: counter(suggestion) '.';
+}
+
+.suggestion-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.suggestion-note {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-muted);
+  overflow-wrap: anywhere;
+}
+
+.copy-one {
+  flex: none;
+  padding: 3px 10px;
+  font: inherit;
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-accent-fg);
+  background: var(--nt-accent);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.copy-one:hover {
+  filter: brightness(1.1);
+}
+
+.copy-one:focus-visible {
+  outline: 2px solid var(--nt-fg);
+  outline-offset: 1px;
+}
+
+/* Collapsed chain-of-thought, shown as evidence when an output came back empty. */
+.reasoning-peek {
+  margin-top: 8px;
+}
+
+.reasoning-peek summary {
+  cursor: pointer;
+}
+
+.output--peek {
+  max-height: 140px;
+  margin-top: 6px;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-muted);
+}

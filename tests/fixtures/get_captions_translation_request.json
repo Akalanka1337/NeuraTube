@@ -1,0 +1,12 @@
+{
+  "_fixture": {
+    "note": "Only the fields the parser reads. The live request also carried session credentials, deliberately absent. Note the language lives at ttsTrackId.lang here, not at a top-level `language` key."
+  },
+  "videoId": "Xo8bwzAFhSw",
+  "ttsTrackId": {
+    "lang": "en",
+    "kind": "",
+    "name": ""
+  },
+  "userIntent": "USER_INTENT_EDIT_LATEST_DRAFT"
+}

@@ -1,0 +1,78 @@
+{
+  "_fixture": {
+    "endpoint": "GET https://www.youtube.com/api/timedtext?v=...&fmt=json3",
+    "provenance": "Trimmed from a REAL capture. Note the differences from Studio's track: tStartMs/dDurationMs are NUMBERS, and text is split across a segs array.",
+    "redaction": "The request URL is not stored. It carried signature, pot, key, ei and an expire deadline \u2014 a signed, expiring grant.",
+    "note": "Includes a pens/wsWinStyles preamble and a formatting-only event with no segs, both of which the parser must skip.",
+    "asserts": {
+      "videoId": "Xo8bwzAFhSw",
+      "language": "en",
+      "segments": 5,
+      "coverageMs": 312080
+    }
+  },
+  "wireMagic": "pb3",
+  "pens": [{}],
+  "wsWinStyles": [{}],
+  "wpWinPositions": [{}],
+  "events": [
+    {
+      "tStartMs": 0,
+      "dDurationMs": 0
+    },
+    {
+      "tStartMs": 480,
+      "dDurationMs": 5760,
+      "segs": [
+        {
+          "utf8": "Look at this blurry video. And now \nlook at it after AI enhancement.  "
+        }
+      ]
+    },
+    {
+      "tStartMs": 6240,
+      "dDurationMs": 5840,
+      "segs": [
+        {
+          "utf8": "This lowresolution clip has clearer edges, \nless visible noise, and much better detail.  "
+        }
+      ]
+    },
+    {
+      "tStartMs": 26720,
+      "dDurationMs": 5160,
+      "segs": [
+        {
+          "utf8": "So, how difficult is it to create results like \nthese? [music] Today, I am testing video proc  "
+        }
+      ]
+    },
+    {
+      "tStartMs": 151040,
+      "dDurationMs": 2680,
+      "segs": [
+        {
+          "utf8": "Okay, thank you so much for watching \nthis video. Don't forget to check the  "
+        }
+      ]
+    },
+    {
+      "tStartMs": 306040,
+      "dDurationMs": 6040,
+      "segs": [
+        {
+          "utf8": "I'm Akalanka. Thanks so much for watching and \nI'll catch you in the next one. Let's do this."
+        }
+      ]
+    },
+    {
+      "tStartMs": 313000,
+      "dDurationMs": 100,
+      "segs": [
+        {
+          "utf8": "\n"
+        }
+      ]
+    }
+  ]
+}
