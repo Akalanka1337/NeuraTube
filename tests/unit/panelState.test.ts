@@ -42,7 +42,7 @@ describe('panel state', () => {
   });
 
   it('derives a status snapshot from the individual signals', () => {
-    surface.value = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/edit');
+    surface.value = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/edit');
     mounted.value = true;
     firstPaintMs.value = 41.5;
     trustedTypesEnforced.value = true;

@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * NeuraTube build pipeline.
  *
  * Chrome extensions have three incompatible output shapes and no single Vite

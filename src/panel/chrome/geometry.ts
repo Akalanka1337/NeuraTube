@@ -2,7 +2,7 @@
  * Panel geometry: bounds, defaults, clamping and snapping.
  *
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Pure functions over plain numbers, deliberately — no DOM, no signals. The
  * interesting logic here is entirely about not putting the panel somewhere the
  * user cannot reach it, and that is exactly the kind of arithmetic that is

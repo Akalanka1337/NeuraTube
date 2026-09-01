@@ -4,7 +4,7 @@
     "provenance": "Synthesised from the schema documented in the project brief. NOT a live capture.",
     "note": "Field names, nesting and enum values follow the brief's captured schema exactly. Values are invented and contain no real channel data. Replace with a redacted live capture when one is available; tests assert on the counts below, so a real capture with different counts will need those numbers updated.",
     "asserts": {
-      "videoId": "tqygzPrAkjY",
+      "videoId": "PPGYNmrVG58",
       "tags": 11,
       "suggestedHashtags": 5,
       "abTestArms": 2,
@@ -19,7 +19,7 @@
   },
   "videos": [
     {
-      "videoId": "tqygzPrAkjY",
+      "videoId": "PPGYNmrVG58",
       "title": "Build an AI Agent in 12 Minutes (Full Tutorial)",
       "description": "In this tutorial we build a working AI agent from scratch.\n\n0:00 Intro\n1:24 Setting up the project\n4:10 Writing the tool layer\n8:35 Streaming responses\n11:02 Deploying\n\nGrab the source code: https://example.com/agent-tutorial\n\n#aiagents #coding #tutorial",
       "descriptionDetails": {
@@ -75,32 +75,32 @@
       "paidProductPlacement": false,
       "alteredContentSettings": { "alteredContent": "VIDEO_HAS_ALTERED_CONTENT_NO" },
       "originalFilename": "FlovaAI-Tutorial.mov",
-      "shareUrl": "https://youtu.be/tqygzPrAkjY",
+      "shareUrl": "https://youtu.be/PPGYNmrVG58",
       "thumbnailDetails": {
         "thumbnails": [
-          { "url": "https://i.ytimg.com/vi/tqygzPrAkjY/default.jpg", "width": 120, "height": 90 },
+          { "url": "https://i.ytimg.com/vi/PPGYNmrVG58/default.jpg", "width": 120, "height": 90 },
           {
-            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/mqdefault.jpg",
+            "url": "https://i.ytimg.com/vi/PPGYNmrVG58/mqdefault.jpg",
             "width": 320,
             "height": 180
           },
           {
-            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/hqdefault.jpg",
+            "url": "https://i.ytimg.com/vi/PPGYNmrVG58/hqdefault.jpg",
             "width": 480,
             "height": 360
           },
           {
-            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/sddefault.jpg",
+            "url": "https://i.ytimg.com/vi/PPGYNmrVG58/sddefault.jpg",
             "width": 640,
             "height": 480
           },
           {
-            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/maxresdefault.jpg",
+            "url": "https://i.ytimg.com/vi/PPGYNmrVG58/maxresdefault.jpg",
             "width": 1280,
             "height": 720
           },
           {
-            "url": "https://i.ytimg.com/vi/tqygzPrAkjY/maxres2.jpg",
+            "url": "https://i.ytimg.com/vi/PPGYNmrVG58/maxres2.jpg",
             "width": 1920,
             "height": 1080
           }

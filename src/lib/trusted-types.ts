@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Trusted Types compatibility.
  *
  * Google enforces Trusted Types on YouTube (announced 2024-07-25) and states

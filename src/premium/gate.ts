@@ -3,7 +3,7 @@
  *
  * https://github.com/Akalanka1337/NeuraTube
  * https://cyberscap.com
- * 
+ *
  * NeuraTube is open source. Anyone can fork this file, make `isPremium` return
  * true, and rebuild — in about a minute. That is fine, and it is the whole point
  * of the design: there is nothing behind this gate worth unlocking.

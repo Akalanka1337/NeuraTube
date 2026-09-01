@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Produce a Chrome Web Store upload archive from dist/.
  *
  * Uses the system `zip` binary rather than a JS zip dependency: one fewer

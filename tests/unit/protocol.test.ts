@@ -19,7 +19,7 @@ function exchange(overrides: Partial<CapturedExchange> = {}): CapturedExchange {
     method: 'POST',
     status: 200,
     responseText: '{"videos":[]}',
-    requestBody: '{"videoIds":["tqygzPrAkjY"]}',
+    requestBody: '{"videoIds":["PPGYNmrVG58"]}',
     at: 1234.5,
     skipped: null,
     ...overrides,

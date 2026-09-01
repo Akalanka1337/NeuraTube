@@ -61,7 +61,7 @@
         resolve(0);
       });
       xhr.send(
-        JSON.stringify({ videoIds: ['tqygzPrAkjY'], context: { client: { clientName: 62 } } }),
+        JSON.stringify({ videoIds: ['PPGYNmrVG58'], context: { client: { clientName: 62 } } }),
       );
     });
 
@@ -70,7 +70,7 @@
       return fetch('/youtubei/v1/creator/get_creator_videos?alt=json', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ videoIds: ['tqygzPrAkjY'] }),
+        body: JSON.stringify({ videoIds: ['PPGYNmrVG58'] }),
       }).then(function (res) {
         return res.text();
       });
@@ -153,7 +153,7 @@
     /* Opening the modal: reveals the dialog and fires what Studio fires. */
     window.__mockOpenSubtitlesModal = function () {
       document.getElementById('subtitles-modal').hidden = false;
-      return window.__mockCaptionsTimings(location.pathname.split('/')[2] || 'tqygzPrAkjY');
+      return window.__mockCaptionsTimings(location.pathname.split('/')[2] || 'PPGYNmrVG58');
     };
 
     /* Traffic NeuraTube must ignore. */
@@ -184,7 +184,7 @@
       -->
       <a
         id="subtitles-editor-link"
-        href="https://studio.youtube.com/video/null/translations"
+        href="https://studio.youtube.com/video/PPGYNmrVG58/translations"
         onclick="
           event.preventDefault();
           window.__mockOpenSubtitlesModal();

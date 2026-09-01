@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Clipboard writes from a content script.
  *
  * THIS IS HARDER THAN IT LOOKS INSIDE AN EXTENSION.

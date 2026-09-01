@@ -2,7 +2,7 @@
  * Deterministic icon generation.
  *
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Writes public/icons/icon-{16,32,48,128}.png with no image dependencies: a
  * minimal PNG encoder over Node's built-in zlib. Rationale — an extension that
  * asks users to trust it with API keys should not pull an image-processing tree

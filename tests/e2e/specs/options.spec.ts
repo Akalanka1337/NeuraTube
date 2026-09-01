@@ -386,7 +386,7 @@ test.describe('About & diagnostics', () => {
     // Every outbound link must open in a new tab AND carry noopener — an
     // extension page handing window.opener to a third party is a real hazard.
     for (const [label, href] of [
-      ['github.com/Akalanka1337', 'https://github.com/Akalanka1337'],
+      ['github.com/Akalanka1337/NeuraTube', 'https://github.com/Akalanka1337/NeuraTube'],
       ['cyberscap.com', 'https://cyberscap.com'],
       ['@Akalanka1337', 'https://github.com/Akalanka1337'],
     ] as const) {

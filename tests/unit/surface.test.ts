@@ -9,28 +9,28 @@ import { isSameSurface } from '~/state/surfaceWatcher';
  */
 describe('detectSurface', () => {
   it('classifies the Studio video edit page and extracts the video id', () => {
-    const info = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/edit');
+    const info = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/edit');
     expect(info.surface).toBe('studio-edit');
     expect(info.mode).toBe('edit');
-    expect(info.videoId).toBe('tqygzPrAkjY');
+    expect(info.videoId).toBe('PPGYNmrVG58');
     expect(info.supported).toBe(true);
   });
 
   it('treats Studio video sub-tabs as the edit surface', () => {
     for (const tail of ['edit', 'comments', 'subtitles', 'editor']) {
-      const info = detectSurface(`https://studio.youtube.com/video/tqygzPrAkjY/${tail}`);
+      const info = detectSurface(`https://studio.youtube.com/video/PPGYNmrVG58/${tail}`);
       expect(info.surface).toBe('studio-edit');
-      expect(info.videoId).toBe('tqygzPrAkjY');
+      expect(info.videoId).toBe('PPGYNmrVG58');
     }
   });
 
   it('classifies Studio video analytics, including the deep period path', () => {
     const info = detectSurface(
-      'https://studio.youtube.com/video/tqygzPrAkjY/analytics/tab-overview/period-default',
+      'https://studio.youtube.com/video/PPGYNmrVG58/analytics/tab-overview/period-default',
     );
     expect(info.surface).toBe('studio-analytics');
     expect(info.mode).toBe('analytics');
-    expect(info.videoId).toBe('tqygzPrAkjY');
+    expect(info.videoId).toBe('PPGYNmrVG58');
   });
 
   it('classifies the channel dashboard and extracts a valid channel id', () => {
@@ -86,7 +86,7 @@ describe('detectSurface', () => {
       'https://www.youtube.com/feed/subscriptions',
       'https://m.youtube.com/watch?v=dQw4w9WgXcQ',
       'https://evil.example.com/watch?v=dQw4w9WgXcQ',
-      'http://studio.youtube.com/video/tqygzPrAkjY/edit',
+      'http://studio.youtube.com/video/PPGYNmrVG58/edit',
     ]) {
       expect(detectSurface(href).supported, href).toBe(false);
     }
@@ -102,8 +102,8 @@ describe('detectSurface', () => {
   it('has a label for every surface it can return', () => {
     const surfaces = new Set(
       [
-        'https://studio.youtube.com/video/tqygzPrAkjY/edit',
-        'https://studio.youtube.com/video/tqygzPrAkjY/analytics/tab-overview',
+        'https://studio.youtube.com/video/PPGYNmrVG58/edit',
+        'https://studio.youtube.com/video/PPGYNmrVG58/analytics/tab-overview',
         'https://studio.youtube.com/channel/UCuAXFkgsw1L7xaCfnd5JJOw',
         'https://studio.youtube.com/',
         'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
@@ -117,7 +117,7 @@ describe('detectSurface', () => {
   });
 
   it('derives a stable layout key per surface', () => {
-    const a = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/edit');
+    const a = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/edit');
     const b = detectSurface('https://studio.youtube.com/video/dQw4w9WgXcQ/edit');
     // Layout is remembered per surface, not per video.
     expect(layoutKeyFor(a)).toBe(layoutKeyFor(b));

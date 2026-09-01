@@ -17,7 +17,7 @@ describe('watchSurface', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
-    setHref('https://studio.youtube.com/video/tqygzPrAkjY/edit');
+    setHref('https://studio.youtube.com/video/PPGYNmrVG58/edit');
   });
 
   afterEach(() => {
@@ -68,9 +68,9 @@ describe('watchSurface', () => {
 
     // Studio rewrites the URL for analytics tab and period changes on the same
     // video. Tearing the panel down for those would be user-visible churn.
-    setHref('https://studio.youtube.com/video/tqygzPrAkjY/edit?tab=details');
+    setHref('https://studio.youtube.com/video/PPGYNmrVG58/edit?tab=details');
     vi.advanceTimersByTime(600);
-    setHref('https://studio.youtube.com/video/tqygzPrAkjY/subtitles');
+    setHref('https://studio.youtube.com/video/PPGYNmrVG58/subtitles');
     vi.advanceTimersByTime(600);
 
     expect(seen).toHaveLength(1);
@@ -116,8 +116,8 @@ describe('watchSurface', () => {
 
 describe('isSameSurface', () => {
   it('compares surface, video and channel identity', () => {
-    const a = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/edit');
-    const b = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/subtitles');
+    const a = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/edit');
+    const b = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/subtitles');
     const c = detectSurface('https://studio.youtube.com/video/dQw4w9WgXcQ/edit');
 
     expect(isSameSurface(a, b)).toBe(true);
