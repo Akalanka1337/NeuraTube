@@ -19,7 +19,7 @@ export interface HeaderProps {
  * Panel header, and the drag handle.
  *
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * The actions were grouped in their own container back in M1 for exactly this
  * reason: `isDragSurface` walks the composed path and refuses to start a drag
  * that began on a button.

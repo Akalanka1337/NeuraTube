@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * The canonical video model.
  *
  * Everything downstream — the panel, the AI orchestrator, the guardrail engine

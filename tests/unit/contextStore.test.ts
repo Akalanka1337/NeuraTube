@@ -81,7 +81,7 @@ describe('context store', () => {
   });
 
   it('merges later batches over earlier ones', () => {
-    surface.value = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/edit');
+    surface.value = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/edit');
     ingestExchange(exchange());
     expect(currentVideo.value?.title).toContain('Build an AI Agent');
 
@@ -90,7 +90,7 @@ describe('context store', () => {
         responseText: JSON.stringify({
           videos: [
             {
-              videoId: 'tqygzPrAkjY',
+              videoId: 'PPGYNmrVG58',
               title: 'Renamed after a Studio save',
               description: '',
               thumbnailDetails: { thumbnails: [] },
@@ -153,9 +153,9 @@ describe('context store', () => {
     expect(lastDrift.value?.severity).toBe('broken');
 
     // The receiver's loop must survive, so a good payload after a bad one works.
-    surface.value = detectSurface('https://studio.youtube.com/video/tqygzPrAkjY/edit');
+    surface.value = detectSurface('https://studio.youtube.com/video/PPGYNmrVG58/edit');
     ingestExchange(exchange());
-    expect(currentVideo.value?.videoId).toBe('tqygzPrAkjY');
+    expect(currentVideo.value?.videoId).toBe('PPGYNmrVG58');
     expect(lastDrift.value?.severity).toBe('none');
   });
 });

@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * XMLHttpRequest patch.
  *
  * Runs inside YouTube's own JS heap. The governing rule is that this code must

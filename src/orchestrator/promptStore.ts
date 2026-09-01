@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Prompt storage and versioning.
  *
  * Every task's system prompt ships as a markdown file in `src/prompts/`, bundled

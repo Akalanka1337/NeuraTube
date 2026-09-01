@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * InnerTube route classification.
  *
  * YouTube and YouTube Studio talk to `/youtubei/v1/*`. This module decides which

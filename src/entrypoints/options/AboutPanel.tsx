@@ -156,7 +156,7 @@ export function AboutPanel({ store }: { readonly store: Store }): JSX.Element {
           <dt>Source</dt>
           <dd>
             <a href={LINKS.github} target="_blank" rel="noopener noreferrer">
-              github.com/Akalanka1337
+              github.com/Akalanka1337/NeuraTube
             </a>
             <span class="small muted block">
               Open source. Read exactly what it sends before you trust it with a key.

@@ -31,11 +31,11 @@ describe('parseCreatorVideosResponse — against the documented schema', () => {
   });
 
   it('extracts identity and text', () => {
-    expect(video.videoId).toBe('tqygzPrAkjY');
+    expect(video.videoId).toBe('PPGYNmrVG58');
     expect(video.title).toBe('Build an AI Agent in 12 Minutes (Full Tutorial)');
     expect(video.description).toContain('0:00 Intro');
     expect(video.channelId).toBe('UCuAXFkgsw1L7xaCfnd5JJOw');
-    expect(video.shareUrl).toBe('https://youtu.be/tqygzPrAkjY');
+    expect(video.shareUrl).toBe('https://youtu.be/PPGYNmrVG58');
     expect(video.originalFilename).toBe('FlovaAI-Tutorial.mov');
   });
 
@@ -114,7 +114,7 @@ describe('parseCreatorVideosResponse — against the documented schema', () => {
   it('parses all 6 thumbnails and finds the largest', () => {
     expect(video.thumbnails).toHaveLength(6);
     expect(bestThumbnail(video)).toEqual({
-      url: 'https://i.ytimg.com/vi/tqygzPrAkjY/maxres2.jpg',
+      url: 'https://i.ytimg.com/vi/PPGYNmrVG58/maxres2.jpg',
       width: 1920,
       height: 1080,
     });

@@ -1,6 +1,6 @@
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * ISOLATED-world side of the transport.
  *
  * Generates the session nonce, performs the handshake, and validates every

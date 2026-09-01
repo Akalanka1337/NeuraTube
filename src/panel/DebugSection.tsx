@@ -17,7 +17,7 @@ function formatBytes(bytes: number): string {
 
 /**
  * https://github.com/Akalanka1337/NeuraTube
- * 
+ *
  * Diagnostics.
  *
  * Exists because NeuraTube reads an undocumented API: when something goes wrong,

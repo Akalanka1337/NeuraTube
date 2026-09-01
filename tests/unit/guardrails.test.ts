@@ -7,7 +7,7 @@ import type { VideoContext } from '~/types/VideoContext';
 
 function video(overrides: Partial<VideoContext> = {}): VideoContext {
   return {
-    videoId: 'tqygzPrAkjY',
+    videoId: 'PPGYNmrVG58',
     title: 'Build an AI Agent',
     description: 'A tutorial.',
     tags: [],
@@ -29,7 +29,7 @@ function video(overrides: Partial<VideoContext> = {}): VideoContext {
     paidPromotion: false,
     alteredContent: 'no',
     originalFilename: null,
-    shareUrl: 'https://youtu.be/tqygzPrAkjY',
+    shareUrl: 'https://youtu.be/PPGYNmrVG58',
     thumbnails: [],
     abTest: { state: 'none', result: null, arms: [] },
     monetization: { effectiveStatus: 'UNKNOWN', selfCertDecision: 'UNKNOWN' },
