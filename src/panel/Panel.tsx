@@ -63,6 +63,7 @@ export function Panel(): JSX.Element | null {
   const video = currentVideo.value;
   const drift = lastDrift.value;
   const paint = firstPaintMs.value;
+  const isPublic = info.surface === 'watch' || info.surface === 'shorts';
 
   return (
     <section
@@ -108,7 +109,7 @@ export function Panel(): JSX.Element | null {
 
         {video ? (
           <>
-            <CaptionsCard video={video} />
+            {isPublic ? <CaptionsCard video={video} /> : null}
             <VideoCard video={video} />
           </>
         ) : (

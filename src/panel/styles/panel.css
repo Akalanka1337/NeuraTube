@@ -1022,6 +1022,16 @@ kbd {
   margin-bottom: 0;
 }
 
+.caption-pill--ok {
+  color: var(--nt-ok);
+  background: color-mix(in srgb, var(--nt-ok) 12%, transparent);
+}
+
+.caption-pill--warn {
+  color: var(--nt-warn);
+  background: color-mix(in srgb, var(--nt-warn) 12%, transparent);
+}
+
 .caption-row {
   display: flex;
   align-items: center;

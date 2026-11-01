@@ -153,13 +153,13 @@ export function CaptionsCard({ video }: { readonly video: VideoContext }): JSX.E
         </h2>
 
         {hasCaptions ? (
-          <span class="pill pill--ok" title={`${wordCount} words`}>
+          <span class="pill caption-pill--ok" title={`${wordCount} words`}>
             {currentTranscript.segments.length} segments
           </span>
         ) : fetching ? (
           <span class="pill pill--muted">Fetching…</span>
         ) : tracks.length > 0 ? (
-          <span class="pill pill--warn">Not loaded</span>
+          <span class="pill caption-pill--warn">Not loaded</span>
         ) : null}
       </div>
 
