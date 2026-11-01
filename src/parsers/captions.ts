@@ -253,6 +253,51 @@ export function formatTimestamp(ms: number): string {
   return hours > 0 ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${minutes}:${pad(seconds)}`;
 }
 
+/** Format milliseconds as a SubRip timestamp: HH:MM:SS,mmm */
+export function formatSrtTimestamp(ms: number): string {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  const millis = Math.max(0, Math.floor(ms % 1000));
+  const pad = (value: number, width = 2) => String(value).padStart(width, '0');
+  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)},${pad(millis, 3)}`;
+}
+
+/** Format milliseconds as a WebVTT timestamp: HH:MM:SS.mmm */
+export function formatVttTimestamp(ms: number): string {
+  return formatSrtTimestamp(ms).replace(',', '.');
+}
+
+/** Render a transcript as SubRip (.srt) subtitle text. */
+export function renderSrtTranscript(transcript: TranscriptContext): string {
+  if (transcript.segments.length === 0) return '';
+  return (
+    transcript.segments
+      .map((segment, index) => {
+        const start = formatSrtTimestamp(segment.startMs);
+        const duration = segment.durationMs > 0 ? segment.durationMs : 2000;
+        const end = formatSrtTimestamp(segment.startMs + duration);
+        return `${index + 1}\n${start} --> ${end}\n${segment.text}`;
+      })
+      .join('\n\n') + '\n'
+  );
+}
+
+/** Render a transcript as WebVTT (.vtt) subtitle text. */
+export function renderVttTranscript(transcript: TranscriptContext): string {
+  if (transcript.segments.length === 0) return 'WEBVTT\n\n';
+  const cues = transcript.segments
+    .map((segment, index) => {
+      const start = formatVttTimestamp(segment.startMs);
+      const duration = segment.durationMs > 0 ? segment.durationMs : 2000;
+      const end = formatVttTimestamp(segment.startMs + duration);
+      return `${index + 1}\n${start} --> ${end}\n${segment.text}`;
+    })
+    .join('\n\n');
+  return `WEBVTT\n\n${cues}\n`;
+}
+
 /**
  * The line that guarantees a 0:00 exists.
  *

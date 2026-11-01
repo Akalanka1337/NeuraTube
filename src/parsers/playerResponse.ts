@@ -19,6 +19,8 @@
  * would quietly start carrying whatever YouTube adds next; an allowlist cannot.
  */
 
+import type { CaptionTrackMeta } from '~/types/VideoContext';
+
 interface PageGlobals {
   ytInitialPlayerResponse?: unknown;
 }
@@ -29,6 +31,48 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function str(value: unknown): string {
   return typeof value === 'string' ? value : '';
+}
+
+function parseTrackName(raw: unknown): string {
+  if (!isRecord(raw)) return '';
+  if (typeof raw.simpleText === 'string') return raw.simpleText;
+  if (Array.isArray(raw.runs)) {
+    return raw.runs
+      .map((run) => (isRecord(run) && typeof run.text === 'string' ? run.text : ''))
+      .join('');
+  }
+  return '';
+}
+
+export function parseCaptionTracks(captions: unknown): readonly CaptionTrackMeta[] {
+  if (!isRecord(captions)) return [];
+  const renderer = captions.playerCaptionsTracklistRenderer;
+  if (!isRecord(renderer)) return [];
+  const tracks = renderer.captionTracks;
+  if (!Array.isArray(tracks)) return [];
+
+  const result: CaptionTrackMeta[] = [];
+  for (const track of tracks) {
+    if (!isRecord(track)) continue;
+    const baseUrl = str(track.baseUrl);
+    if (baseUrl === '') continue;
+
+    const languageCode = str(track.languageCode);
+    const name = parseTrackName(track.name) || languageCode || 'Captions';
+    const vssId = typeof track.vssId === 'string' ? track.vssId : undefined;
+    const kind = typeof track.kind === 'string' ? track.kind : undefined;
+    const isTranslatable = track.isTranslatable === true;
+
+    result.push({
+      baseUrl,
+      name,
+      languageCode: languageCode !== '' ? languageCode : 'unknown',
+      ...(vssId !== undefined ? { vssId } : {}),
+      ...(kind !== undefined ? { kind } : {}),
+      ...(isTranslatable ? { isTranslatable: true } : {}),
+    });
+  }
+  return result;
 }
 
 /**
@@ -94,6 +138,7 @@ export function extractPlayerDetails(playerResponse: unknown): string | null {
     category: str(renderer.category),
     isFamilySafe: renderer.isFamilySafe === true,
     isUnlisted: renderer.isUnlisted === true,
+    captionTracks: parseCaptionTracks(response.captions),
   };
 
   return JSON.stringify(payload);

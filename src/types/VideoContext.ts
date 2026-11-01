@@ -34,6 +34,16 @@ export interface ExperimentArm {
   readonly watchtimeFraction: number;
 }
 
+/** Caption track exposed by YouTube's player payload on public watch pages. */
+export interface CaptionTrackMeta {
+  readonly baseUrl: string;
+  readonly name: string;
+  readonly languageCode: string;
+  readonly vssId?: string;
+  readonly kind?: string;
+  readonly isTranslatable?: boolean;
+}
+
 export interface VideoContext {
   readonly videoId: string;
   readonly title: string;
@@ -94,6 +104,8 @@ export interface VideoContext {
   readonly subscriberText?: string;
   /** Chapters YouTube itself shows, read from the watch page. */
   readonly chapters?: readonly { readonly label: string; readonly startSec: number }[];
+  /** Available caption tracks for public watch pages, when exposed. */
+  readonly captionTracks?: readonly CaptionTrackMeta[];
   /**
    * Which surface this came from.
    *

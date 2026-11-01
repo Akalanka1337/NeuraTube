@@ -3,6 +3,7 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { parseTimedTextResponse, parseTimedTextUrl } from '~/parsers/timedText';
 import { hashtagsIn, parseWatchPageData } from '~/parsers/watchVideo';
+import { parseCaptionTracks } from '~/parsers/playerResponse';
 import { renderTimedTranscript } from '~/parsers/captions';
 import { parseCount, timestampToSeconds } from '~/panel/watchDom';
 
@@ -196,6 +197,25 @@ describe('parseWatchPageData', () => {
     expect(parseWatchPageData(JSON.stringify({ videoId: 'abc' })).drift.severity).toBe('none');
   });
 
+  it('parses captionTracks when present in the payload', () => {
+    const payloadWithCaptions = JSON.stringify({
+      videoId: 'testVid',
+      captionTracks: [
+        {
+          baseUrl: 'https://www.youtube.com/api/timedtext?v=testVid&lang=en',
+          name: 'English (auto-generated)',
+          languageCode: 'en',
+          kind: 'asr',
+          isTranslatable: true,
+        },
+      ],
+    });
+    const parsed = parseWatchPageData(payloadWithCaptions).video!;
+    expect(parsed.captionTracks).toHaveLength(1);
+    expect(parsed.captionTracks![0]!.name).toBe('English (auto-generated)');
+    expect(parsed.captionTracks![0]!.kind).toBe('asr');
+  });
+
   it.each([
     ['an empty payload', ''],
     ['invalid JSON', '<html>'],
@@ -204,6 +224,54 @@ describe('parseWatchPageData', () => {
     const parsed = parseWatchPageData(body);
     expect(parsed.video).toBeNull();
     expect(parsed.drift.severity).toBe('broken');
+  });
+});
+
+describe('parseCaptionTracks', () => {
+  it('extracts tracks from playerCaptionsTracklistRenderer', () => {
+    const rawCaptions = {
+      playerCaptionsTracklistRenderer: {
+        captionTracks: [
+          {
+            baseUrl: 'https://www.youtube.com/api/timedtext?v=abc&lang=en',
+            name: { simpleText: 'English' },
+            languageCode: 'en',
+            vssId: '.en',
+          },
+          {
+            baseUrl: 'https://www.youtube.com/api/timedtext?v=abc&lang=es',
+            name: { runs: [{ text: 'Spanish' }] },
+            languageCode: 'es',
+            kind: 'asr',
+            isTranslatable: true,
+          },
+        ],
+      },
+    };
+    const tracks = parseCaptionTracks(rawCaptions);
+    expect(tracks).toHaveLength(2);
+    expect(tracks[0]).toEqual({
+      baseUrl: 'https://www.youtube.com/api/timedtext?v=abc&lang=en',
+      name: 'English',
+      languageCode: 'en',
+      vssId: '.en',
+    });
+    expect(tracks[1]).toEqual({
+      baseUrl: 'https://www.youtube.com/api/timedtext?v=abc&lang=es',
+      name: 'Spanish',
+      languageCode: 'es',
+      kind: 'asr',
+      isTranslatable: true,
+    });
+  });
+
+  it('handles null, empty or missing caption structures gracefully', () => {
+    expect(parseCaptionTracks(null)).toEqual([]);
+    expect(parseCaptionTracks({})).toEqual([]);
+    expect(parseCaptionTracks({ playerCaptionsTracklistRenderer: {} })).toEqual([]);
+    expect(
+      parseCaptionTracks({ playerCaptionsTracklistRenderer: { captionTracks: 'invalid' } }),
+    ).toEqual([]);
   });
 });
 

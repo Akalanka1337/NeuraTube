@@ -258,6 +258,13 @@ export function setTranscriptCapturedHandler(handler: (next: TranscriptContext) 
   onTranscriptCaptured = handler;
 }
 
+/** Record an on-demand fetched transcript, notify persister, and clear previous attempt. */
+export function recordTranscript(next: TranscriptContext): void {
+  transcript.value = next;
+  onTranscriptCaptured?.(next);
+  lastTranscriptAttempt.value = null;
+}
+
 export function ingestExchange(exchange: CapturedExchange): void {
   exchangeCount.value += 1;
 

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'preact/hooks';
 import { Header } from './Header';
 import { Orb } from './Orb';
 import { VideoCard } from './VideoCard';
+import { CaptionsCard } from './CaptionsCard';
 import { DebugSection } from './DebugSection';
 import { TaskOutput, TaskRail } from './TaskView';
 import {
@@ -106,7 +107,10 @@ export function Panel(): JSX.Element | null {
         {openTask.value !== null ? <TaskOutput task={openTask.value} /> : <TaskRail />}
 
         {video ? (
-          <VideoCard video={video} />
+          <>
+            <CaptionsCard video={video} />
+            <VideoCard video={video} />
+          </>
         ) : (
           <div class="card">
             <h2 class="card-title">Waiting for Studio data</h2>
