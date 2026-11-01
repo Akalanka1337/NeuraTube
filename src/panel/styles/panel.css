@@ -1007,3 +1007,110 @@ kbd {
   font-size: var(--nt-fs-xs);
   color: var(--nt-fg-muted);
 }
+
+/* ---------- captions & subtitles card ---------- */
+
+.captions-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.captions-card-header .card-title {
+  margin-bottom: 0;
+}
+
+.caption-pill--ok {
+  color: var(--nt-ok);
+  background: color-mix(in srgb, var(--nt-ok) 12%, transparent);
+}
+
+.caption-pill--warn {
+  color: var(--nt-warn);
+  background: color-mix(in srgb, var(--nt-warn) 12%, transparent);
+}
+
+.caption-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.caption-label {
+  flex: none;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg-muted);
+}
+
+.caption-select {
+  flex: 1;
+  min-width: 0;
+  padding: 5px 8px;
+  font: inherit;
+  font-size: var(--nt-fs-xs);
+  color: var(--nt-fg);
+  background: var(--nt-bg-inset);
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-sm);
+}
+
+.caption-select:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 1px;
+}
+
+.caption-section {
+  margin-top: 10px;
+}
+
+.caption-section-title {
+  display: block;
+  margin-bottom: 5px;
+  font-size: var(--nt-fs-xs);
+  font-weight: 600;
+  color: var(--nt-fg-muted);
+}
+
+.caption-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.caption-btn {
+  flex: 1 1 auto;
+  min-width: 80px;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: var(--nt-fs-xs);
+  font-weight: 500;
+  text-align: center;
+  color: var(--nt-accent-fg);
+  background: var(--nt-accent);
+  border: 1px solid transparent;
+  border-radius: var(--nt-radius-sm);
+  cursor: pointer;
+}
+
+.caption-btn:hover {
+  filter: brightness(1.1);
+}
+
+.caption-btn:focus-visible {
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 1px;
+}
+
+.caption-btn.ghost-btn {
+  color: var(--nt-fg);
+  background: var(--nt-bg-inset);
+  border-color: var(--nt-border);
+}
+
+.caption-btn.ghost-btn:hover {
+  background: color-mix(in srgb, var(--nt-accent) 15%, var(--nt-bg-inset));
+  border-color: var(--nt-accent);
+}

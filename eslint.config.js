@@ -46,6 +46,8 @@ export default tseslint.config(
       'playwright-report/**',
       'test-results/**',
       'node_modules/**',
+      '.agents/**',
+      '.github/**',
     ],
   },
 

@@ -16,7 +16,7 @@
 
 import type { DriftReport } from './drift';
 import { createDriftCollector } from './drift';
-import type { VideoContext } from '~/types/VideoContext';
+import type { CaptionTrackMeta, VideoContext } from '~/types/VideoContext';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -116,6 +116,22 @@ export function parseWatchPageData(raw: string, extras: WatchDomExtras = {}): Wa
   // have no tags, and flagging that as a parse problem would cry wolf.
   drift.counted();
 
+  const captionTracks: readonly CaptionTrackMeta[] | undefined = Array.isArray(json.captionTracks)
+    ? json.captionTracks
+        .filter(
+          (track): track is Record<string, unknown> =>
+            isRecord(track) && typeof track.baseUrl === 'string' && track.baseUrl !== '',
+        )
+        .map((track) => ({
+          baseUrl: str(track.baseUrl),
+          name: str(track.name) || str(track.languageCode) || 'Captions',
+          languageCode: str(track.languageCode) || 'unknown',
+          ...(typeof track.vssId === 'string' ? { vssId: track.vssId } : {}),
+          ...(typeof track.kind === 'string' ? { kind: track.kind } : {}),
+          ...(track.isTranslatable === true ? { isTranslatable: true } : {}),
+        }))
+    : undefined;
+
   const video: VideoContext = {
     videoId,
     title: str(json.title),
@@ -154,6 +170,7 @@ export function parseWatchPageData(raw: string, extras: WatchDomExtras = {}): Wa
     subscriberText: extras.subscriberText ?? '',
     chapters: extras.chapters ?? [],
     source: 'public',
+    ...(captionTracks && captionTracks.length > 0 ? { captionTracks } : {}),
   };
 
   return { video, drift: drift.report() };

@@ -9,6 +9,10 @@ test-results/
 .env
 .env.*
 !.env.example
+.agents/
+.github/skills/
+.github/hooks/
+.github/agents/
 
 # Captured InnerTube payloads may contain channel-identifying data. Redacted
 # fixtures live in tests/fixtures/ and ARE committed; raw captures never are.

@@ -5,11 +5,15 @@ import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   coversVideo,
+  formatSrtTimestamp,
   formatTimestamp,
+  formatVttTimestamp,
   parseCaptionsRequest,
   parseCaptionsResponse,
   renderPlainTranscript,
+  renderSrtTranscript,
   renderTimedTranscript,
+  renderVttTranscript,
   transcriptWordCount,
 } from '~/parsers/captions';
 
@@ -431,5 +435,58 @@ describe('the chapter prompt no longer contradicts itself', () => {
     expect(DEFAULT_PROMPTS.chapter_generator).toMatch(
       /A first caption that starts after 0:00 is \*\*not\*\* one of those cases/,
     );
+  });
+});
+
+describe('subtitle file rendering (SRT and VTT)', () => {
+  const sampleTranscript: TranscriptContext = {
+    videoId: 'testVid123',
+    language: 'en',
+    segments: [
+      { startMs: 480, durationMs: 5760, text: 'Welcome to this tutorial.' },
+      { startMs: 6500, durationMs: 3200, text: 'Today we explore modern features.' },
+      { startMs: 3661050, durationMs: 0, text: 'An hour later, conclusion.' },
+    ],
+    coverageMs: 3663050,
+    capturedAtMs: 1234567,
+  };
+
+  it('formats SRT timestamps correctly with comma millisecond delimiter', () => {
+    expect(formatSrtTimestamp(0)).toBe('00:00:00,000');
+    expect(formatSrtTimestamp(480)).toBe('00:00:00,480');
+    expect(formatSrtTimestamp(6500)).toBe('00:00:06,500');
+    expect(formatSrtTimestamp(3661050)).toBe('01:01:01,050');
+  });
+
+  it('formats WebVTT timestamps correctly with dot millisecond delimiter', () => {
+    expect(formatVttTimestamp(0)).toBe('00:00:00.000');
+    expect(formatVttTimestamp(480)).toBe('00:00:00.480');
+    expect(formatVttTimestamp(3661050)).toBe('01:01:01.050');
+  });
+
+  it('renders standard SubRip (.srt) subtitles', () => {
+    const srt = renderSrtTranscript(sampleTranscript);
+    expect(srt).toContain('1\n00:00:00,480 --> 00:00:06,240\nWelcome to this tutorial.');
+    expect(srt).toContain('2\n00:00:06,500 --> 00:00:09,700\nToday we explore modern features.');
+    // 0 duration falls back to 2000 ms default duration
+    expect(srt).toContain('3\n01:01:01,050 --> 01:01:03,050\nAn hour later, conclusion.');
+  });
+
+  it('renders standard WebVTT (.vtt) subtitles', () => {
+    const vtt = renderVttTranscript(sampleTranscript);
+    expect(vtt.startsWith('WEBVTT\n\n')).toBe(true);
+    expect(vtt).toContain('1\n00:00:00.480 --> 00:00:06.240\nWelcome to this tutorial.');
+  });
+
+  it('handles an empty transcript gracefully', () => {
+    const empty: TranscriptContext = {
+      videoId: 'empty',
+      language: 'en',
+      segments: [],
+      coverageMs: 0,
+      capturedAtMs: 0,
+    };
+    expect(renderSrtTranscript(empty)).toBe('');
+    expect(renderVttTranscript(empty)).toBe('WEBVTT\n\n');
   });
 });
