@@ -25,7 +25,7 @@ internal API. NeuraTube intercepts those responses, so the model sees the title,
 tags, duration, visibility and compliance flags exactly as YouTube holds them — not a
 truncated copy scraped out of the DOM.
 
-Three consequences that matter:
+Four consequences that matter:
 
 - **Tags on any public video.** A video's tags are not rendered anywhere in the page, at
   any point. They exist in YouTube's player payload, which is where NeuraTube reads them.
@@ -33,6 +33,10 @@ Three consequences that matter:
 - **Chapters from real timestamps.** Chapter generation uses YouTube's own caption timings
   and **refuses to run without them**, because a guessed timestamp looks correct and is
   wrong at every point in the video.
+- **Copy and download subtitles on public videos and Shorts.** Extract manual and
+  auto-generated caption tracks directly from YouTube's player payload with one-click
+  copy (plain text, timestamps, or SubRip `.srt`) and file download (`.srt`, `.vtt`, `.txt`)
+  with zero extra permissions.
 
 ---
 
@@ -60,6 +64,15 @@ Three consequences that matter:
 | **Steal this video**   | What a competitor promises, why it works, how to beat it                                                                          |
 | **Content gaps**       | Ranked gaps a channel has the authority to claim                                                                                  |
 | **Better video ideas** | Stronger angles on this video, grounded in competitor context                                                                     |
+
+#### Captions & Subtitles Exporter
+
+On public watch pages and Shorts, NeuraTube adds a dedicated **Captions & Subtitles** card:
+
+- **Track & Language Selector** — Automatically identifies all published manual and auto-generated (`asr`) subtitle tracks with an on-demand switcher.
+- **One-Click Copy** — Copy continuous transcript prose, timestamped text (`[M:SS]`), or formatted SubRip (`.srt`) to your clipboard.
+- **Subtitle File Downloads** — Export and download `.srt`, `.vtt`, or `.txt` files named after the video title (`<Video_Title>.<lang>.srt`) via client-side Blob URLs with zero extra browser permissions.
+- **On-Demand Fetching** — Fetches caption data in the background without needing to toggle YouTube's native closed caption (CC) button.
 
 Works on `/watch`, `/shorts/`, search results, and every Studio surface.
 
