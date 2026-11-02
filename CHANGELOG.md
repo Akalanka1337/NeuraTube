@@ -5,6 +5,16 @@ All notable changes to NeuraTube are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.2] — 2026-11-02
+
+### Added
+
+- **Captions & Subtitles Exporter on public watch pages and Shorts** — extracts available manual and auto-generated (`asr`) caption tracks directly from YouTube's player response.
+- **Subtitle file downloads** — one-click client-side download of `.srt` (SubRip), `.vtt` (WebVTT), and `.txt` files with safe title sanitization and zero additional browser permissions.
+- **Copy captions to clipboard** — copy continuous plain text, timestamped text (`[M:SS]`), or formatted SubRip (`.srt`) directly from the panel.
+- **Multi-language track selector** — switch between all published subtitle tracks on the video on demand.
+- **On-demand background fetch** — fetches caption tracks without requiring the viewer to activate YouTube's CC button.
+
 ## [0.11.1] — 2026-08-31
 
 **Initial public release.**
@@ -115,4 +125,5 @@ why the first release is not `0.1.0`.
 - The premium client is not included in this release. The extension does not contact any
   NeuraTube service, and every task listed above works with your own API key.
 
+[0.11.2]: https://github.com/Akalanka1337/neuratube/releases/tag/v0.11.2
 [0.11.1]: https://github.com/Akalanka1337/neuratube/releases/tag/v0.11.1
